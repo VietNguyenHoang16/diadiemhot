@@ -7,8 +7,34 @@ import ContactForm from '@/app/components/ContactForm';
 import { hasDatabaseUrl } from '@/app/lib/public-db';
 import { prisma } from '@/app/lib/db';
 import { isRankingCategory, looksLikeRankingPostTitle } from '@/app/lib/ranking-posts';
+import { toAbsoluteImageUrl } from '@/app/lib/site-config';
 
 // Revalidate every hour — homepage auto-refreshes with new content
+
+const FALLBACK_HOME_IMAGE = `data:image/svg+xml;utf8,${encodeURIComponent(`
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#dfe3e8" />
+      <stop offset="45%" stop-color="#00173a" />
+      <stop offset="100%" stop-color="#bb0012" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#bg)" />
+  <circle cx="960" cy="170" r="180" fill="rgba(255,255,255,0.10)" />
+  <circle cx="250" cy="650" r="220" fill="rgba(255,255,255,0.08)" />
+  <rect x="90" y="110" width="220" height="28" rx="14" fill="rgba(255,255,255,0.18)" />
+  <rect x="90" y="170" width="290" height="24" rx="12" fill="#bb0012" />
+  <text x="90" y="350" fill="#ffffff" font-family="Arial, sans-serif" font-size="110" font-weight="800">DIA DIEM</text>
+  <text x="90" y="445" fill="#ffffff" font-family="Arial, sans-serif" font-size="110" font-weight="800">HOT</text>
+  <text x="90" y="555" fill="rgba(255,255,255,0.82)" font-family="Arial, sans-serif" font-size="38" font-weight="700">Bai viet noi bat va review moi nhat</text>
+</svg>
+`)}`;
+
+function getHomepageImage(image?: string | null) {
+  const trimmedImage = image?.trim();
+  return trimmedImage ? toAbsoluteImageUrl(trimmedImage) : FALLBACK_HOME_IMAGE;
+}
 
 // ---- Deterministic daily shuffle using date seed ----
 function dailyShuffle<T>(arr: T[]): T[] {
@@ -155,13 +181,11 @@ export default async function Home() {
               {/* Main Featured Article */}
               {heroPost ? (
                 <Link href={`/blog/${heroPost.slug}`} className="relative group overflow-hidden rounded-lg bg-[#dfe3e8] aspect-[4/5] md:aspect-auto h-full min-h-[400px] block">
-                  {heroPost.image && (
-                    <img
-                      alt={heroPost.title}
-                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                      src={heroPost.image}
-                    />
-                  )}
+                  <img
+                    alt={heroPost.title}
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    src={getHomepageImage(heroPost.image)}
+                  />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#00173a]/90 to-transparent" />
                   <div className="absolute bottom-0 p-8">
                     <span className="inline-block bg-[#bb0012] px-3 py-1 text-xs font-bold text-white uppercase tracking-widest mb-4">
@@ -193,17 +217,13 @@ export default async function Home() {
               {/* 4 Smaller Items */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {heroSidePosts.length > 0 ? heroSidePosts.map((post, i) => (
-                  <Link key={post.id} href={`/blog/${post.slug}`} className={`relative min-h-[240px] rounded-lg overflow-hidden flex flex-col justify-end transition-colors ${i === heroSidePosts.length - 1 ? 'border-2 border-[#bb0012]/10' : 'border border-slate-100 hover:border-[#bb0012]/20'} ${post.image ? 'bg-[#00173a]' : 'bg-white'}`}>
-                    {post.image && (
-                      <>
-                        <img
-                          alt={post.title}
-                          className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                          src={post.image}
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-[#00173a]/90 via-[#00173a]/45 to-transparent" />
-                      </>
-                    )}
+                <Link key={post.id} href={`/blog/${post.slug}`} className={`group relative min-h-[240px] rounded-lg overflow-hidden flex flex-col justify-end transition-colors ${i === heroSidePosts.length - 1 ? 'border-2 border-[#bb0012]/10' : 'border border-slate-100 hover:border-[#bb0012]/20'} ${post.image ? 'bg-[#00173a]' : 'bg-white'}`}>
+                    <img
+                      alt={post.title}
+                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      src={getHomepageImage(post.image)}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#00173a]/90 via-[#00173a]/45 to-transparent" />
                     <div className="relative z-10 p-4">
                     <span className={`text-xs font-black uppercase tracking-widest mb-2 block ${post.image ? 'text-white/80' : 'text-[#bb0012]'}`}>
                       {post.category || 'Bài Viết'}
@@ -240,7 +260,7 @@ export default async function Home() {
                     <Link key={post.id} href={`/blog/${post.slug}`} className="min-w-[280px] snap-start group relative block">
                       <div className="aspect-[16/10] bg-slate-200 rounded overflow-hidden mb-3 relative">
                         {post.image ? (
-                          <img alt={post.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform" src={post.image} />
+                          <img alt={post.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform" src={getHomepageImage(post.image)} />
                         ) : (
                           <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-amber-50 to-orange-100">
                             <span className="text-4xl">🏆</span>
@@ -269,9 +289,7 @@ export default async function Home() {
                     if (idx === 1 && newsPosts.length >= 4) {
                       return (
                         <Link key={post.id} href={`/blog/${post.slug}`} className="md:row-span-2 bg-[#00173a] text-white p-6 relative overflow-hidden group block">
-                          {post.image && (
-                            <img alt={post.title} className="absolute inset-0 w-full h-full object-cover opacity-20 group-hover:scale-110 transition-transform duration-1000" src={post.image} />
-                          )}
+                          <img alt={post.title} className="absolute inset-0 w-full h-full object-cover opacity-20 group-hover:scale-110 transition-transform duration-1000" src={getHomepageImage(post.image)} />
                           <div className="relative z-10">
                             <span className="bg-[#bb0012] px-2 py-0.5 text-xs font-bold tracking-widest uppercase inline-block mb-6">
                               {post.category || 'Đặc Biệt'}
@@ -286,7 +304,15 @@ export default async function Home() {
                       );
                     }
                     return (
-                      <Link key={post.id} href={`/blog/${post.slug}`} className={`p-6 ${idx === 2 ? 'bg-slate-100' : 'bg-white shadow-sm border border-slate-100 hover:border-[#bb0012]/20'} transition-colors block`}>
+                      <Link key={post.id} href={`/blog/${post.slug}`} className={`group overflow-hidden ${idx === 2 ? 'bg-slate-100' : 'bg-white shadow-sm border border-slate-100 hover:border-[#bb0012]/20'} transition-colors block`}>
+                        <div className="relative mb-4 aspect-[16/10] overflow-hidden rounded-lg bg-slate-200">
+                          <img
+                            alt={post.title}
+                            className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                            src={getHomepageImage(post.image)}
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-[#00173a]/35 via-transparent to-transparent" />
+                        </div>
                         {idx === 0 && (
                           <div className="flex items-center gap-2 mb-3">
                             <Star className="w-4 h-4 text-[#bb0012] fill-current" />
@@ -343,9 +369,16 @@ export default async function Home() {
                 <div className="space-y-6">
                   {trendingPosts.map((post, idx) => (
                     <Link key={post.id} href={`/blog/${post.slug}`} className="flex gap-4 group cursor-pointer">
-                      <span className="text-4xl font-black text-[#bb0012] transition-colors leading-none">
-                        {(idx + 1).toString().padStart(2, '0')}
-                      </span>
+                      <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-lg bg-slate-200">
+                        <img
+                          alt={post.title}
+                          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                          src={getHomepageImage(post.image)}
+                        />
+                        <span className="absolute left-2 top-2 rounded-full bg-white/95 px-2 py-1 text-[10px] font-black text-[#bb0012] shadow-sm">
+                          {(idx + 1).toString().padStart(2, '0')}
+                        </span>
+                      </div>
                       <div>
                         <h4 className="text-base font-bold text-[#00173a] group-hover:underline line-clamp-2">{post.title}</h4>
                         <p className="text-xs text-slate-500 uppercase font-bold mt-1">{post.category}</p>

@@ -81,8 +81,12 @@ export default function RootLayout({
     <html
       lang="vi"
       className={`${beVietnamPro.variable} h-full antialiased`}
+      suppressHydrationWarning
     >
-      <body className={`min-h-full flex flex-col font-sans`}>
+      <body
+        className={`min-h-full flex flex-col font-sans`}
+        suppressHydrationWarning
+      >
         <script
           type="application/ld+json"
           suppressHydrationWarning
