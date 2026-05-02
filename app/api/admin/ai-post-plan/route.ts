@@ -1,7 +1,6 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/app/lib/db';
 import { cookies } from 'next/headers';
-import { Prisma } from '@prisma/client';
 import {
   buildPrompt,
   parseAIResponse,
@@ -15,6 +14,10 @@ import { slugifyVietnamese } from '@/app/lib/slug';
 async function hasAdminAccess() {
   const session = (await cookies()).get('admin_session');
   return session?.value === 'authenticated';
+}
+
+function isUniqueConstraintError(error: unknown): error is { code: string; meta?: { target?: string[] } } {
+  return typeof error === 'object' && error !== null && 'code' in error && (error as { code: string }).code === 'P2002';
 }
 
 function createSlug(value: string) {
@@ -61,7 +64,7 @@ async function getOrCreateTags(tagNames: string[]) {
         tagIds.push(createdTag.id);
         break;
       } catch (error) {
-        if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2002') {
+        if (isUniqueConstraintError(error)) {
           const existingName = await prisma.tag.findUnique({
             where: { name: tagName },
             select: { id: true }
@@ -289,7 +292,7 @@ export async function POST(request: Request) {
         });
         break;
       } catch (error) {
-        if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2002') {
+        if (isUniqueConstraintError(error)) {
           const target = Array.isArray(error.meta?.target) ? error.meta?.target : [];
           if (target.includes('slug')) {
             slug = makeUniqueSlug(baseSlug);

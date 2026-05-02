@@ -12,7 +12,8 @@
     "db:generate": "npx prisma generate",
     "db:studio": "npx prisma studio",
     "migrate:data": "npx ts-node scripts/migrate-data.ts",
-    "backfill:ranking-category": "node scripts/backfill-ranking-category.js"
+    "backfill:ranking-category": "node scripts/backfill-ranking-category.js",
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@prisma/adapter-pg": "^7.7.0",
