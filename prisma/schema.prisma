@@ -1,0 +1,286 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ==================== ENUMS ====================
+
+enum Role {
+  GUEST
+  BUSINESS
+  ADMIN
+}
+
+enum BusinessStatus {
+  PENDING
+  ACTIVE
+  REJECTED
+}
+
+enum ReviewStatus {
+  PENDING
+  PUBLISHED
+  REJECTED
+}
+
+enum LeadStatus {
+  PENDING
+  CONTACTED
+  CONVERTED
+  REJECTED
+}
+
+enum PostStatus {
+  DRAFT
+  PUBLISHED
+}
+
+// ==================== USER & BUSINESS ====================
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String?
+  name      String
+  phone     String?
+  avatar    String?
+  role      Role     @default(BUSINESS)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  business Business?
+}
+
+model Business {
+  id             String         @id @default(cuid())
+  name           String
+  slug           String         @unique
+  description    String?
+  address        String?
+  phone          String?
+  email          String?
+  website        String?
+  facebook       String?
+  zalo           String?
+  openingHours   String?
+  logo           String?
+  coverImage     String?
+  status         BusinessStatus @default(PENDING)
+  featured       Boolean        @default(false)
+  featuredExpiry DateTime?
+  views          Int            @default(0)
+  rating         Float          @default(0)
+  reviewCount    Int            @default(0)
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+
+  // Relations
+  userId   String  @unique
+  user     User    @relation(fields: [userId], references: [id])
+  
+  locationId String?
+  location   Location? @relation(fields: [locationId], references: [id])
+  
+  industryId String?
+  industry   Industry? @relation(fields: [industryId], references: [id])
+  
+  reviews        Review[]
+  categories     BusinessCategory[]
+}
+
+// ==================== LOCATION SYSTEM ====================
+
+model Region {
+  id        String   @id @default(cuid())
+  name      String   @unique // "Miền Bắc", "Miền Trung", etc.
+  slug      String   @unique
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+
+  provinces Province[]
+}
+
+model Province {
+  id        String   @id @default(cuid())
+  name      String   @unique
+  slug      String   @unique
+  code      String?  // Mã tỉnh VD: HN, SG
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+
+  regionId String?
+  region   Region?  @relation(fields: [regionId], references: [id])
+  
+  locations Location[]
+  posts     BlogPost[]
+}
+
+model Location {
+  id          String  @id @default(cuid())
+  name        String
+  latitude    Float?
+  longitude   Float?
+  district    String?
+  ward        String?
+  fullAddress String?
+
+  provinceId String?
+  province   Province? @relation(fields: [provinceId], references: [id])
+  
+  businesses Business[]
+}
+
+// ==================== CATEGORY SYSTEM ====================
+
+model Category {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  slug        String   @unique
+  icon        String?  // Lucide icon name
+  description String?
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+
+  businesses BusinessCategory[]
+}
+
+model BusinessCategory {
+  id         String   @id @default(cuid())
+  businessId String
+  categoryId String
+
+  business Business @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  category Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  @@unique([businessId, categoryId])
+}
+
+// ==================== INDUSTRY ====================
+
+model Industry {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  slug        String   @unique
+  icon        String   // Lucide icon name
+  description String?
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+
+  businesses Business[]
+  posts      BlogPost[]
+}
+
+// ==================== TAG SYSTEM ====================
+
+model Tag {
+  id        String   @id @default(cuid())
+  name      String   @unique
+  slug      String   @unique
+  createdAt DateTime @default(now())
+
+  posts BlogPostTag[]
+}
+
+model BlogPostTag {
+  id     String @id @default(cuid())
+  postId String
+  tagId  String
+
+  post BlogPost @relation(fields: [postId], references: [id], onDelete: Cascade)
+  tag  Tag      @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  @@unique([postId, tagId])
+}
+
+// ==================== REVIEW ====================
+
+model Review {
+  id        String       @id @default(cuid())
+  rating    Int
+  comment   String?
+  images    String[]
+  status    ReviewStatus @default(PENDING)
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+
+  businessId String
+  business   Business @relation(fields: [businessId], references: [id], onDelete: Cascade)
+}
+
+// ==================== LEAD ====================
+
+model Lead {
+  id            String     @id @default(cuid())
+  businessName  String
+  contactName   String
+  email         String
+  phone         String
+  description   String?
+  package       String     @default("BASIC")
+  status        LeadStatus @default(PENDING)
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+}
+
+// ==================== BLOG POST ====================
+
+model BlogPost {
+  id          String     @id @default(cuid())
+  title       String
+  slug        String     @unique
+  excerpt     String?  @db.Text
+  content     String?  @db.Text
+  image       String?
+  category    String?
+  author      String?
+  status      PostStatus @default(DRAFT)
+  views       Int        @default(0)
+  publishedAt DateTime?
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  // Relations
+  industryId String?
+  industry   Industry? @relation(fields: [industryId], references: [id])
+  
+  provinceId String?
+  province   Province? @relation(fields: [provinceId], references: [id])
+  
+  tags BlogPostTag[]
+}
+
+// ==================== NEWSLETTER ====================
+
+model Newsletter {
+  id        String  @id @default(cuid())
+  email     String  @unique
+  status    Boolean @default(true)
+  createdAt DateTime @default(now())
+}
+
+// ==================== SYSTEM CONFIGURATION ====================
+
+model SystemSetting {
+  id    String @id @default(cuid())
+  key   String @unique
+  value String
+}
+
+model AiWriterPrompt {
+  id        String   @id @default(cuid())
+  name      String   @unique
+  content   String   @db.Text
+  updatedAt DateTime @updatedAt
+}
+
+model AiPostPlan {
+  id        String   @id @default(cuid())
+  title     String
+  status    String   @default("PENDING") // PENDING, GENERATING, COMPLETED, FAILED
+  postId    String?  @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

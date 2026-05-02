@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>The Editorial Authority | Precision in Curation</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-tertiary-container": "#7e98a5",
+                    "inverse-surface": "#2d3135",
+                    "on-tertiary-fixed-variant": "#304a55",
+                    "on-secondary-fixed": "#410002",
+                    "surface-variant": "#dfe3e8",
+                    "on-surface-variant": "#434750",
+                    "primary": "#00173a",
+                    "on-surface": "#181c20",
+                    "tertiary-fixed": "#cbe7f5",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-bright": "#f7f9ff",
+                    "background": "#f7f9ff",
+                    "secondary-container": "#e51c22",
+                    "secondary-fixed-dim": "#ffb4ab",
+                    "on-secondary": "#ffffff",
+                    "on-primary-fixed-variant": "#25467d",
+                    "error-container": "#ffdad6",
+                    "on-secondary-container": "#fffbff",
+                    "on-primary-fixed": "#001a40",
+                    "on-primary-container": "#7694d0",
+                    "tertiary-fixed-dim": "#afcbd8",
+                    "surface-container-high": "#e5e8ee",
+                    "surface-tint": "#3f5e96",
+                    "outline-variant": "#c4c6d1",
+                    "outline": "#747781",
+                    "on-error-container": "#93000a",
+                    "inverse-on-surface": "#eef1f7",
+                    "tertiary": "#001b25",
+                    "primary-container": "#002b61",
+                    "tertiary-container": "#15303b",
+                    "surface-container-highest": "#dfe3e8",
+                    "surface-dim": "#d7dae0",
+                    "on-secondary-fixed-variant": "#93000c",
+                    "primary-fixed": "#d7e2ff",
+                    "surface-container": "#ebeef4",
+                    "primary-fixed-dim": "#acc7ff",
+                    "on-tertiary": "#ffffff",
+                    "secondary-fixed": "#ffdad6",
+                    "inverse-primary": "#acc7ff",
+                    "surface": "#f7f9ff",
+                    "on-tertiary-fixed": "#021f29",
+                    "on-primary": "#ffffff",
+                    "surface-container-low": "#f1f4fa",
+                    "on-error": "#ffffff",
+                    "secondary": "#bb0012",
+                    "on-background": "#181c20",
+                    "error": "#ba1a1a"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "fontFamily": {
+                    "headline": ["Inter"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #c4c6d1; border-radius: 10px; }
+        .glass-effect { backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body selection:bg-secondary/30">
+<!-- 1. Header with News Ticker -->
+<header class="fixed top-0 w-full z-50 bg-white/80 dark:bg-slate-950/80 backdrop-blur-xl shadow-sm dark:shadow-none">
+<div class="bg-primary text-white py-1.5 px-8 overflow-hidden whitespace-nowrap">
+<div class="flex items-center gap-4 text-[10px] tracking-[0.2em] font-bold uppercase">
+<span class="bg-secondary px-2 py-0.5 rounded-sm">Breaking</span>
+<p class="animate-pulse">Global Tech Summit 2024: The Era of Autonomy Begins • New Travel Regulations for EU Residents • Precision Editorial Board Welcomes Chief Curator ...</p>
+</div>
+</div>
+<nav class="flex justify-between items-center px-8 h-16 w-full max-w-screen-2xl mx-auto">
+<div class="text-2xl font-black tracking-tighter text-[#00173a] dark:text-slate-100 uppercase">
+                The Editorial Authority
+            </div>
+<div class="hidden lg:flex items-center space-x-6 text-sm font-inter tracking-tight font-semibold">
+<a class="text-[#bb0012] border-b-2 border-[#bb0012] pb-1" href="#">Politics</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-[#bb0012] transition-colors duration-200" href="#">Technology</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-[#bb0012] transition-colors duration-200" href="#">Culture</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-[#bb0012] transition-colors duration-200" href="#">Reviews</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-[#bb0012] transition-colors duration-200" href="#">Travel</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-[#bb0012] transition-colors duration-200" href="#">Style</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-slate-600" data-icon="search">search</button>
+<button class="material-symbols-outlined text-slate-600" data-icon="notifications">notifications</button>
+<button class="bg-secondary text-white px-5 py-2 rounded-full text-xs font-bold uppercase tracking-widest hover:opacity-90 transition-all active:scale-95">Subscribe</button>
+</div>
+</nav>
+</header>
+<main class="max-w-screen-2xl mx-auto pt-28 px-8 pb-16">
+<div class="grid grid-cols-12 gap-8">
+<!-- Left Side Content (Main Feed) -->
+<div class="col-span-12 lg:col-span-9 space-y-12">
+<!-- 2. Hero Grid -->
+<section class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="relative group overflow-hidden rounded-lg bg-surface-container-highest aspect-[4/5] md:aspect-auto h-full min-h-[400px]">
+<img alt="" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="ultra-modern skyscraper architecture under a clear blue sky with sharp reflections and clean lines editorial style" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCj35f8GRi8eErN3_1dR3g-HNYFEmkq9KigCuM578hgfGP15yuWqOQMdZOEZWgA3IVM9XOwpJPj90n88Alcv3FtB6bC8L1HbCkcF9b8ErOvKkUgBLTG9Ye_NFv7M9PGrURrxCdyHglf7gutXsi_kTB_NsMiRrpPCPWpHRKrJPOPILfVMTvEBFi4DR8ZEGK9sT7eICiCrjcJ5D-B5xBPaq3i5y3VWTat3gqMaTjO61OEKkd_QLOejiC1jFpDopWWKPK6wEwt3kAd"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/90 to-transparent"></div>
+<div class="absolute bottom-0 p-8">
+<span class="inline-block bg-secondary px-3 py-1 text-[10px] font-bold text-white uppercase tracking-widest mb-4">Architecture</span>
+<h2 class="text-4xl font-black text-white leading-tight mb-4 tracking-tighter">The Future of Urban Living: Decentralized Infrastructure</h2>
+<p class="text-white/80 text-sm max-w-lg mb-6 line-clamp-2">How high-density housing is being reimagined for the post-digital era, balancing luxury with extreme efficiency.</p>
+<div class="flex items-center gap-3 text-white/60 text-[10px] font-bold uppercase tracking-widest">
+<span>By Editorial Team</span>
+<span class="w-1 h-1 bg-secondary rounded-full"></span>
+<span>12 Min Read</span>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+<!-- 4 Smaller Items -->
+<div class="bg-surface-container-low p-4 rounded-lg flex flex-col justify-between">
+<span class="text-secondary text-[9px] font-black uppercase tracking-widest mb-2">Just In</span>
+<h3 class="text-sm font-bold text-primary leading-snug hover:text-secondary cursor-pointer transition-colors">The 2024 EV Performance Benchmarks</h3>
+<p class="text-xs text-on-surface-variant mt-2 line-clamp-2">Tesla, Lucid, and Porsche face off in the ultimate range test.</p>
+</div>
+<div class="bg-surface-container-low p-4 rounded-lg flex flex-col justify-between">
+<span class="text-secondary text-[9px] font-black uppercase tracking-widest mb-2">Exclusive</span>
+<h3 class="text-sm font-bold text-primary leading-snug hover:text-secondary cursor-pointer transition-colors">Interior Design's New Minimalist Wave</h3>
+<p class="text-xs text-on-surface-variant mt-2 line-clamp-2">Why brutalist textures are returning to living rooms globally.</p>
+</div>
+<div class="bg-surface-container-low p-4 rounded-lg flex flex-col justify-between">
+<span class="text-secondary text-[9px] font-black uppercase tracking-widest mb-2">Lifestyle</span>
+<h3 class="text-sm font-bold text-primary leading-snug hover:text-secondary cursor-pointer transition-colors">The High-Altitude Coffee Revolution</h3>
+<p class="text-xs text-on-surface-variant mt-2 line-clamp-2">Inside the micro-farms producing the world's rarest beans.</p>
+</div>
+<div class="bg-surface-container-low p-4 rounded-lg flex flex-col justify-between border-2 border-secondary/10">
+<span class="text-secondary text-[9px] font-black uppercase tracking-widest mb-2">Finance</span>
+<h3 class="text-sm font-bold text-primary leading-snug hover:text-secondary cursor-pointer transition-colors">Market Volatility: The Tech Correction</h3>
+<p class="text-xs text-on-surface-variant mt-2 line-clamp-2">What the latest earnings reports mean for your portfolio.</p>
+</div>
+</div>
+</section>
+<!-- 3. Top 5 Rankings -->
+<section>
+<div class="flex items-end justify-between mb-8">
+<h2 class="text-2xl font-black text-primary uppercase tracking-tighter">The Defined Top 5</h2>
+<a class="text-xs font-bold text-secondary uppercase tracking-widest hover:underline" href="#">View All Rankings</a>
+</div>
+<div class="flex gap-4 overflow-x-auto pb-4 -mx-2 px-2 snap-x">
+<div class="min-w-[280px] snap-start group relative">
+<div class="aspect-[16/10] bg-surface-container-highest rounded overflow-hidden mb-3">
+<img alt="" class="w-full h-full object-cover group-hover:scale-105 transition-transform" data-alt="luxury hotel infinity pool overlooking the ocean at sunset with warm orange lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAKZ5lIZR26zTy4_zVucf8nMB5Pk74GZwuY6kl4scIe9ci1nuVgA62r9HbnpWqZUmJaD6EJwkWPRUsDBtHd0krfhYzZfDz6i4Abo6Dp0llTZIboKZHaXUt3JEiRgOLqysuuELd5o_vsi4hk6nQ6eN2p5mJw5WhuM53oqmuWDzF6VJlfgVcoNo__xttlSpWsQOG9sYhlArkvoziWCg5qwrfg87w_22bs1l4Q61JAnRwsin3MFTHsjJ0Ah3cHMsi1h-gzOhNlyvBi"/>
+<div class="absolute top-2 left-2 bg-primary text-white text-[10px] px-2 py-1 font-bold">TRAVEL</div>
+</div>
+<h4 class="font-bold text-primary text-sm leading-tight group-hover:text-secondary transition-colors">Top 5 Luxury Retreats in Southeast Asia</h4>
+<p class="text-[11px] text-on-surface-variant mt-1 italic">Verified October 2024</p>
+</div>
+<div class="min-w-[280px] snap-start group relative">
+<div class="aspect-[16/10] bg-surface-container-highest rounded overflow-hidden mb-3">
+<img alt="" class="w-full h-full object-cover group-hover:scale-105 transition-transform" data-alt="high performance mechanical keyboard with customizable RGB lighting on a dark wooden desk" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC4oN7939ItJvUfX8Tq4uqjjSj9JnLG2sDLYiLYrxlLQV_uneA-vVLCvzOf_EOCiyDVR9mqh1y67mKz7mkpHhFh4DMCuQ8tYVuHXnEg1jqe-8eLHUTCUYG-DIz2P1tpVre575gEdexjk4TDqo287xDoW0XI3p9SjBgqTGR7ebEadb6NmRl0kGngMMjuTKeYcg5NI7fJjlqUiT12GiEtzsv4h_itk3v7vg0W9J9TT3Rb36YlFkfaGY-3ys3y8e12HCUlcsieGmRP"/>
+<div class="absolute top-2 left-2 bg-primary text-white text-[10px] px-2 py-1 font-bold">TECH</div>
+</div>
+<h4 class="font-bold text-primary text-sm leading-tight group-hover:text-secondary transition-colors">Top 5 Mechanical Keyboards for Productivity</h4>
+<p class="text-[11px] text-on-surface-variant mt-1 italic">Verified October 2024</p>
+</div>
+<div class="min-w-[280px] snap-start group relative">
+<div class="aspect-[16/10] bg-surface-container-highest rounded overflow-hidden mb-3">
+<img alt="" class="w-full h-full object-cover group-hover:scale-105 transition-transform" data-alt="modern fine dining restaurant interior with dim warm lighting and minimalist furniture" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBFkVV3ny0m3DMa6OtP_i2IcI90hOTpFEYhAf25b-Je9FdopFgJa7nF1g87DGe8hxLw01-qtZ8X2PylDgQQUIk5XzT42z8vhruS1WTLA7nfaks1-6SR-_1q6ZH2gsJFI0IiwTdGmZdyPLlWY1L1pMeYvflToCg5Fnt8_2mgQdTbUBWUXbPNXESWrwvV_cX5BLgDlk7YVNE7I_liFQZICjjAA7tPmCwAa3j9RIaLtGovqvcTP2V1UVI0ald0tqrWPdHI8gWxvNpU"/>
+<div class="absolute top-2 left-2 bg-primary text-white text-[10px] px-2 py-1 font-bold">FOOD</div>
+</div>
+<h4 class="font-bold text-primary text-sm leading-tight group-hover:text-secondary transition-colors">Top 5 Michelin-Starred Experiences Under $100</h4>
+<p class="text-[11px] text-on-surface-variant mt-1 italic">Verified September 2024</p>
+</div>
+</div>
+</section>
+<!-- 4. Global News Feed (Masonry Style Grid) -->
+<section>
+<h2 class="text-2xl font-black text-primary uppercase tracking-tighter mb-8 border-l-4 border-secondary pl-4">The Feed</h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Row 1 -->
+<article class="bg-white p-6 shadow-sm border border-outline-variant/10">
+<div class="flex items-center gap-2 mb-3">
+<span class="material-symbols-outlined text-secondary scale-75" data-icon="verified">verified</span>
+<span class="text-[9px] font-bold text-on-surface-variant uppercase tracking-widest">Verified Review</span>
+</div>
+<h3 class="text-lg font-black text-primary leading-tight mb-3">The Leica M11: A Purist's Dream or Tech Relic?</h3>
+<p class="text-sm text-on-surface-variant mb-4">An in-depth 6-month field test through the streets of Tokyo and Berlin.</p>
+<div class="text-[10px] text-primary/40 font-bold uppercase">Oct 14, 2024 • Culture</div>
+</article>
+<article class="md:row-span-2 bg-primary text-white p-6 relative overflow-hidden group">
+<img alt="" class="absolute inset-0 w-full h-full object-cover opacity-20 group-hover:scale-110 transition-transform duration-1000" data-alt="lines of code on a computer screen in a dark room with purple and blue ambient glow" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCj3vaPep1fsdEJIAN84Ix-MqKdiGvwJiU9y-AYX1SRJiTJkd-goK93Cbtq1Mh1GlVea-TVChYWVKAOI4xG3Ein4L8s5qm31Eu4ViAR0Y2iocuRA56wHWijBqseOKxW-8vRLbg4wG5A3Po6lfo0H181u4huGNZbBvI-vI4h5icyNjzzyPrNRqmBqVpjNgziVGbftbRmizNYL0mWkAOigDUcyNMgxNjVmny_pzOBT4xwMEVN2QMhh7LJoqO4ac7BiwLJDTWmHfxL"/>
+<div class="relative z-10">
+<span class="bg-secondary px-2 py-0.5 text-[9px] font-bold tracking-widest uppercase inline-block mb-6">Deep Dive</span>
+<h3 class="text-2xl font-black leading-tight mb-4">The Algorithm That Reshaped Content Forever</h3>
+<p class="text-sm text-white/70 mb-8">Understanding the physics of modern viral cycles and the death of traditional curation.</p>
+<button class="text-xs font-bold uppercase tracking-widest flex items-center gap-2 group-hover:gap-4 transition-all">Read Analysis <span class="material-symbols-outlined" data-icon="arrow_forward">arrow_forward</span></button>
+</div>
+</article>
+<article class="bg-surface-container-low p-6">
+<h3 class="text-lg font-black text-primary leading-tight mb-3">Urban Mobility in 2025</h3>
+<p class="text-sm text-on-surface-variant mb-4">Why the subscription car model is finally gaining traction in North America.</p>
+<div class="text-[10px] text-primary/40 font-bold uppercase">Oct 12, 2024 • Business</div>
+</article>
+<article class="bg-white p-6 shadow-sm border border-outline-variant/10">
+<h3 class="text-lg font-black text-primary leading-tight mb-3">Climate-Tech’s Big Pivot</h3>
+<p class="text-sm text-on-surface-variant mb-4">Investors are moving away from consumer goods to industrial decarbonization.</p>
+<div class="text-[10px] text-primary/40 font-bold uppercase">Oct 11, 2024 • Green</div>
+</article>
+<article class="bg-white p-6 shadow-sm border border-outline-variant/10">
+<h3 class="text-lg font-black text-primary leading-tight mb-3">Remote Work: The Hybrid Equilibrium</h3>
+<p class="text-sm text-on-surface-variant mb-4">Data shows the 3-2 model has become the permanent global standard.</p>
+<div class="text-[10px] text-primary/40 font-bold uppercase">Oct 10, 2024 • Career</div>
+</article>
+</div>
+</section>
+<!-- 6. Expert Opinion -->
+<section class="bg-primary-container p-10 rounded-2xl">
+<div class="max-w-2xl">
+<h2 class="text-3xl font-black text-white uppercase tracking-tighter mb-10">Expert Opinion</h2>
+<div class="space-y-12">
+<div class="flex gap-6 items-start">
+<img alt="" class="w-16 h-16 rounded-full object-cover border-2 border-secondary shadow-lg" data-alt="professional portrait of a man in his 40s with a sharp suit and thoughtful expression" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBXxFefPYCOCjd-Gew6oMTpigWzMIseG0az8ZYYKxMCbaWmGR1rYtIvpzYD-tTKfzCP17H8iuBWzngTWRulNiinFVPPXaAF7xlpJ9FHx5ar6SP_9ITzDtZwKRL4jbQSxhQXpA0wG6LaSRbbT5RtbbbQ6SqhdVqdAQUrJT68oKHzwQQVy1Sdi9toRkkhpgUaq9USrU9227ObkkfrIGTka6fIebqZMuYKymNjgnmC7W6EjEY8P5XgWzaXPlGKtlTo012BNcmrQPdg"/>
+<div>
+<h4 class="text-xl font-bold text-white mb-2 leading-tight">"AI is the new Printing Press, but we are losing our editors."</h4>
+<p class="text-on-primary-container text-sm leading-relaxed mb-4 italic">The surge in generative content is creating an information glut that only human curation can solve.</p>
+<div class="text-[10px] text-secondary font-black tracking-widest uppercase">David Chen, Chief Curation Officer</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 7. Video Review Gallery -->
+<section>
+<h2 class="text-2xl font-black text-primary uppercase tracking-tighter mb-8">Video Reviews</h2>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+<div class="relative aspect-video group overflow-hidden rounded-lg">
+<img alt="" class="w-full h-full object-cover" data-alt="cinematic shot of a heavy weight bench press in a gritty urban gym with lens flare" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBRWgTEWTTjlqJvRiqH8uciPOPTYZyjKUGNIXvre_7sYe4Vdn0Gu6EaszIO_1sUFYN0USQ6fGj1iCHl7Tzif85puypeL_hmGWR5sCLzF-L_gFyu3xP910Ir2sY61HZ-3LSH5N1awZr20KW6JjntBRCB_RHltKXp9dRM4Qcbgi3cfc3fTMM3lsBUa0I_yJymchVNp3IWySDcVm_a2AMCvqTzcz5hQvroDNuiZ6QFLPGkPrrsFh01Iz6PJPfj8e5a6jfVv18f53iR"/>
+<div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-all flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-6xl opacity-80" data-icon="play_circle">play_circle</span>
+</div>
+<div class="absolute bottom-4 left-4 right-4">
+<h4 class="text-white font-bold text-sm">Testing the World's Toughest Fitness Gear</h4>
+</div>
+</div>
+<div class="relative aspect-video group overflow-hidden rounded-lg">
+<img alt="" class="w-full h-full object-cover" data-alt="overhead shot of a beautifully plated gourmet seafood dish in a fine dining setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDnWJxak_frCDX8eY5eZsst_x4Qm4A0cuw2LHnUvid30RuU2J3-azRQKTYu7N7h3Ikt-5EwBXF_jdaXIIaNc5aPSPIZrCYMwX90kp2-JAUPvnub8u5ZtEh5hPCB2PNcBFb9ZOmTjr6C-TWKxikLw0IT7OH-QxBTewzEVUQp7693WD-2W7Wh1hklfYiNj7mfY4SIC1--9P12AiFFuINGzD6UTu159ktrNifsFuh_AfEjfm_7xmHey1FN5UVH_LLbQ9e1hoVz9MU4"/>
+<div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-all flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-6xl opacity-80" data-icon="play_circle">play_circle</span>
+</div>
+<div class="absolute bottom-4 left-4 right-4">
+<h4 class="text-white font-bold text-sm">Fine Dining: Is the Tasting Menu Dead?</h4>
+</div>
+</div>
+</div>
+</section>
+<!-- 8. Community Review Wall -->
+<section>
+<h2 class="text-2xl font-black text-primary uppercase tracking-tighter mb-8">The Community Wall</h2>
+<div class="columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4">
+<div class="break-inside-avoid bg-white p-4 shadow-sm border border-outline-variant/10">
+<div class="flex items-center gap-2 mb-3">
+<div class="w-6 h-6 rounded-full bg-secondary-container text-white flex items-center justify-center text-[10px] font-bold">JD</div>
+<span class="text-[10px] font-bold">Julian D.</span>
+</div>
+<p class="text-xs text-on-surface-variant">The review on the M11 is spot on. I've been using it for a month and the tactile feel is unmatched.</p>
+</div>
+<div class="break-inside-avoid bg-surface-container-low p-4">
+<img alt="" class="w-full h-32 object-cover rounded mb-3" data-alt="close up of a sleek modern smartphone resting on a marble surface with soft light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBq1uc29xSvHut_cebX1oOVT886ENHX7_Ec8PJ31-Dp_Wv0LzniQz2G7luHRn1UFyBEf9v4GFZfT3WLPGR00FcPcA959ul82X7DpUp9e53K6pNcqZltaTDIdjS3a4AOCyv5Zb4ixKwF44TO-Ssl8Tw5mODDm3WnQa-xOun_d-_iaDp5dt8-I-3V5CYgnHjsb7RXAHl09xier9xhodA3AjjxHeNmawSJGc-BQf3fQiho9bP_uFmJxR6lRX_N965kBm-JcIhWQr9A"/>
+<p class="text-xs font-bold text-primary">Finally got the Pixel 9 Pro. Curation here was 100% right about the camera.</p>
+</div>
+<div class="break-inside-avoid bg-white p-4 shadow-sm border border-outline-variant/10">
+<div class="flex items-center gap-2 mb-3">
+<div class="w-6 h-6 rounded-full bg-primary text-white flex items-center justify-center text-[10px] font-bold">MK</div>
+<span class="text-[10px] font-bold">Mark K.</span>
+</div>
+<p class="text-xs text-on-surface-variant">Best travel guide I've read for Japan. The hidden Kyoto gems were life-changing.</p>
+</div>
+</div>
+</section>
+</div>
+<!-- Right Sidebar -->
+<aside class="col-span-12 lg:col-span-3 space-y-12">
+<!-- 5. Trending Now -->
+<section>
+<h2 class="text-lg font-black text-primary uppercase tracking-tighter mb-6">Trending Now</h2>
+<div class="space-y-6">
+<div class="flex gap-4 group cursor-pointer">
+<span class="text-4xl font-black text-outline-variant/30 group-hover:text-secondary transition-colors leading-none">01</span>
+<div>
+<h4 class="text-sm font-bold text-primary group-hover:underline">The 10 Best Productivity Apps of 2024</h4>
+<p class="text-[10px] text-on-surface-variant uppercase font-bold mt-1">Tech • 45k Reads</p>
+</div>
+</div>
+<div class="flex gap-4 group cursor-pointer">
+<span class="text-4xl font-black text-outline-variant/30 group-hover:text-secondary transition-colors leading-none">02</span>
+<div>
+<h4 class="text-sm font-bold text-primary group-hover:underline">Why Wine Regions are Facing Crisis</h4>
+<p class="text-[10px] text-on-surface-variant uppercase font-bold mt-1">Culture • 38k Reads</p>
+</div>
+</div>
+<div class="flex gap-4 group cursor-pointer">
+<span class="text-4xl font-black text-outline-variant/30 group-hover:text-secondary transition-colors leading-none">03</span>
+<div>
+<h4 class="text-sm font-bold text-primary group-hover:underline">Best Noise Cancelling Headphones Ranked</h4>
+<p class="text-[10px] text-on-surface-variant uppercase font-bold mt-1">Review • 31k Reads</p>
+</div>
+</div>
+<div class="flex gap-4 group cursor-pointer">
+<span class="text-4xl font-black text-outline-variant/30 group-hover:text-secondary transition-colors leading-none">04</span>
+<div>
+<h4 class="text-sm font-bold text-primary group-hover:underline">The Rise of Non-Alcoholic Cocktails</h4>
+<p class="text-[10px] text-on-surface-variant uppercase font-bold mt-1">Food • 22k Reads</p>
+</div>
+</div>
+</div>
+</section>
+<!-- 9. Category Breakdown -->
+<section class="bg-surface-container-low p-6 rounded-lg">
+<h2 class="text-sm font-black text-primary uppercase tracking-widest mb-6">Explore Niches</h2>
+<div class="grid grid-cols-2 gap-2">
+<a class="bg-white p-3 flex flex-col items-center justify-center rounded hover:bg-secondary hover:text-white transition-colors group" href="#">
+<span class="material-symbols-outlined text-secondary group-hover:text-white mb-1" data-icon="restaurant">restaurant</span>
+<span class="text-[10px] font-bold uppercase tracking-widest">Food</span>
+</a>
+<a class="bg-white p-3 flex flex-col items-center justify-center rounded hover:bg-secondary hover:text-white transition-colors group" href="#">
+<span class="material-symbols-outlined text-secondary group-hover:text-white mb-1" data-icon="flight">flight</span>
+<span class="text-[10px] font-bold uppercase tracking-widest">Travel</span>
+</a>
+<a class="bg-white p-3 flex flex-col items-center justify-center rounded hover:bg-secondary hover:text-white transition-colors group" href="#">
+<span class="material-symbols-outlined text-secondary group-hover:text-white mb-1" data-icon="devices">devices</span>
+<span class="text-[10px] font-bold uppercase tracking-widest">Tech</span>
+</a>
+<a class="bg-white p-3 flex flex-col items-center justify-center rounded hover:bg-secondary hover:text-white transition-colors group" href="#">
+<span class="material-symbols-outlined text-secondary group-hover:text-white mb-1" data-icon="checkroom">checkroom</span>
+<span class="text-[10px] font-bold uppercase tracking-widest">Style</span>
+</a>
+</div>
+</section>
+<!-- 10. Sponsored Content -->
+<section class="border-y border-outline-variant/20 py-8">
+<span class="text-[9px] font-bold text-on-surface-variant uppercase tracking-[0.2em] mb-4 block text-center">Partner Content</span>
+<div class="space-y-4">
+<div class="flex gap-3">
+<div class="w-16 h-16 bg-surface-container-highest shrink-0">
+<img alt="" class="w-full h-full object-cover" data-alt="minimalist white product photography of a smart watch against a neutral background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCFMyE3a_kutu_aeiqCT_nohvoQXLYuwZaJEsf9Pz2eqsmF4T2caYdSE3aocTxm1zxm8o0jtKuJzYRQH8IfXg3dY0Y1RgHz4qbGIwsgmeLMsETTLcd4ulm7NK5SLbkVL7Sn_uYbNq2Bct5vKpBBnmr_NNs8tJHAutuzsfQiwaoWnR1vhC5v9xI2dCL5DxdexxEE85c_PZ4p9PHx4nViCXJHV-IbtEWM3jVBDba_XHX9zSBpWPcUYlTL8-R4hfUB67WGr5bRLos9"/>
+</div>
+<h4 class="text-[11px] font-bold text-primary leading-tight hover:text-secondary cursor-pointer">How this smart-watch is disrupting the fitness industry...</h4>
+</div>
+<div class="flex gap-3">
+<div class="w-16 h-16 bg-surface-container-highest shrink-0">
+<img alt="" class="w-full h-full object-cover" data-alt="modern luxury real estate apartment interior with large windows and high-end finishes" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCfo4X_ojhvqz7-DpRMwojacbUJcxW3WvyBkI8whZJ0M4qk2q0-zrdS3TJya3kXSSEFjsjwv8x06HrVZvJw4zEe7bs2cqDSox5l2Vlkmc726OBCUqZyVY9dfGsUNUeRrdcluagHvc9dXbMMJ8xnIrfSN2qR9udNlmBtWKWOoToR-Pdv52PsKNpwGgki4Rk641VOIs4oJenUkRtcxTaFObL8ws1eSKe6iP0U2A3Xnlx_I7012oi2ALcaV4XsJ4o6AgDgubKV9DRC"/>
+</div>
+<h4 class="text-[11px] font-bold text-primary leading-tight hover:text-secondary cursor-pointer">Investing in the new coastal real estate boom...</h4>
+</div>
+</div>
+</section>
+<!-- 11. Local Guides -->
+<section>
+<h2 class="text-sm font-black text-primary uppercase tracking-widest mb-6">Essential Guides</h2>
+<ul class="space-y-3">
+<li class="flex items-center gap-3 border-b border-outline-variant/10 pb-3">
+<span class="material-symbols-outlined text-secondary" data-icon="map">map</span>
+<a class="text-xs font-bold text-primary hover:text-secondary" href="#">48 Hours in Tokyo: A Modernist Guide</a>
+</li>
+<li class="flex items-center gap-3 border-b border-outline-variant/10 pb-3">
+<span class="material-symbols-outlined text-secondary" data-icon="local_cafe">local_cafe</span>
+<a class="text-xs font-bold text-primary hover:text-secondary" href="#">London's Secret Coffee Culture</a>
+</li>
+<li class="flex items-center gap-3 border-b border-outline-variant/10 pb-3">
+<span class="material-symbols-outlined text-secondary" data-icon="train">train</span>
+<a class="text-xs font-bold text-primary hover:text-secondary" href="#">The Best European Rail Journeys</a>
+</li>
+</ul>
+</section>
+<!-- 12. Newsletter/Subscription -->
+<section class="bg-secondary text-white p-8 rounded-lg">
+<h2 class="text-2xl font-black uppercase tracking-tighter mb-4">Authority Daily</h2>
+<p class="text-xs text-white/80 mb-6 leading-relaxed">Get the world's most precise curation of news and reviews delivered to your inbox every morning.</p>
+<div class="space-y-3">
+<input class="w-full bg-white/10 border-none rounded p-3 text-sm text-white placeholder:text-white/40 focus:ring-2 focus:ring-white" placeholder="email@address.com" type="email"/>
+<button class="w-full bg-white text-secondary font-black text-xs uppercase tracking-widest py-3 rounded hover:bg-white/90 transition-colors">Join Now</button>
+</div>
+</section>
+</aside>
+</div>
+</main>
+<!-- 13. Detailed Footer -->
+<footer class="bg-[#00173a] dark:bg-black w-full pt-16 pb-8 px-8 flex flex-col items-center space-y-8">
+<div class="w-full max-w-screen-2xl grid grid-cols-1 md:grid-cols-4 gap-12 border-b border-white/10 pb-12">
+<div class="space-y-6">
+<div class="text-xl font-black text-white">THE EDITORIAL AUTHORITY</div>
+<p class="text-slate-400 text-xs leading-relaxed">Defined by precision, delivered with style. We are the digital curator for the discerning modern professional.</p>
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-white/40 hover:text-secondary cursor-pointer" data-icon="share">share</span>
+<span class="material-symbols-outlined text-white/40 hover:text-secondary cursor-pointer" data-icon="chat">chat</span>
+<span class="material-symbols-outlined text-white/40 hover:text-secondary cursor-pointer" data-icon="rss_feed">rss_feed</span>
+</div>
+</div>
+<div>
+<h4 class="font-inter text-xs uppercase tracking-widest text-white mb-6">Information</h4>
+<ul class="space-y-3 text-slate-400 text-[10px] font-bold uppercase tracking-wider">
+<li><a class="hover:text-[#bb0012]" href="#">About Us</a></li>
+<li><a class="hover:text-[#bb0012]" href="#">Editorial Guidelines</a></li>
+<li><a class="hover:text-[#bb0012]" href="#">Privacy Policy</a></li>
+<li><a class="hover:text-[#bb0012]" href="#">Terms of Service</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-inter text-xs uppercase tracking-widest text-white mb-6">Partnerships</h4>
+<ul class="space-y-3 text-slate-400 text-[10px] font-bold uppercase tracking-wider">
+<li><a class="hover:text-[#bb0012]" href="#">Advertising</a></li>
+<li><a class="hover:text-[#bb0012]" href="#">Affiliates</a></li>
+<li><a class="hover:text-[#bb0012]" href="#">Careers</a></li>
+<li><a class="hover:text-[#bb0012]" href="#">Contact</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-inter text-xs uppercase tracking-widest text-white mb-6">Quick Tags</h4>
+<div class="flex flex-wrap gap-2">
+<span class="px-2 py-1 bg-white/5 rounded text-[9px] text-slate-400 font-bold uppercase tracking-widest hover:bg-secondary hover:text-white cursor-pointer transition-colors">Tech</span>
+<span class="px-2 py-1 bg-white/5 rounded text-[9px] text-slate-400 font-bold uppercase tracking-widest hover:bg-secondary hover:text-white cursor-pointer transition-colors">Culture</span>
+<span class="px-2 py-1 bg-white/5 rounded text-[9px] text-slate-400 font-bold uppercase tracking-widest hover:bg-secondary hover:text-white cursor-pointer transition-colors">Reviews</span>
+<span class="px-2 py-1 bg-white/5 rounded text-[9px] text-slate-400 font-bold uppercase tracking-widest hover:bg-secondary hover:text-white cursor-pointer transition-colors">Rankings</span>
+<span class="px-2 py-1 bg-white/5 rounded text-[9px] text-slate-400 font-bold uppercase tracking-widest hover:bg-secondary hover:text-white cursor-pointer transition-colors">Style</span>
+</div>
+</div>
+</div>
+<div class="text-slate-400 font-inter text-[10px] uppercase tracking-[0.3em]">
+            © 2024 The Editorial Authority. Precision in Curation.
+        </div>
+</footer>
+</body></html>

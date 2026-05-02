@@ -1,0 +1,198 @@
+[browser] Uncaught Error: Internal Next.js error: Router action dispatched before initialization.
+[browser] Uncaught Error: Internal Next.js error: Router action dispatched before initialization.
+[browser] Uncaught Error: Internal Next.js error: Router action dispatched before initialization.
+[browser] Uncaught Error: Internal Next.js error: Router action dispatched before initialization.
+[browser] Uncaught Error: Internal Next.js error: Router action dispatched before initialization.
+[browser] Uncaught Error: Internal Next.js error: Router action dispatched before initialization.
+⚠ Fast Refresh had to perform a full reload due to a runtime error.
+⨯ ReferenceError: regions is not defined
+    at DuLich (app\du-lich\page.tsx:147:16)
+  145 |             {/* Regions */}
+  146 |             <section className="flex flex-wrap gap-3">
+> 147 |               {regions.map((region, idx) => (
+      |                ^
+  148 |                 <button
+  149 |                   key={idx}
+  150 |                   onClick={() => handleRegionClick(region.name)} {
+  digest: '1373962557'
+}
+⚠ Fast Refresh had to perform a full reload due to a runtime error.
+⨯ ReferenceError: hotels is not defined
+    at DuLich (app\du-lich\page.tsx:226:21)
+  224 |                       </Link>
+  225 |                     ))
+> 226 |                   : hotels.map((hotel, idx) => (
+      |                     ^
+  227 |                       <Link
+  228 |                         key={idx}
+  229 |                         href={`/blog?category=Khách%20sạn&province=${encodeURIComponent(h... {
+  digest: '1596969727'
+}
+⨯ ./app/du-lich/page.tsx
+Error:   x Expected a semicolon
+     ,-[C:\Users\ASUS\Desktop\Ungdungcuatoi\diadiemtot\app\du-lich\page.tsx:155:1]
+ 152 |                   {[1, 2, 3].map(i => <div key={i} className="animate-pulse bg-slate-200 h-64 rounded-lg" />)}
+ 153 |                 </div>
+ 154 |               ) : destinations.length > 0 ? (
+ 155 |                 {destinations.map((dest, idx) => (
+     :                              ^
+ 156 |                   <Link
+ 157 |                     key={idx}
+ 158 |                     href={`/blog/${dest.slug}`}
+     `----
+  x Expected '</', got '.'
+     ,-[C:\Users\ASUS\Desktop\Ungdungcuatoi\diadiemtot\app\du-lich\page.tsx:155:1]
+ 152 |                   {[1, 2, 3].map(i => <div key={i} className="animate-pulse bg-slate-200 h-64 rounded-lg" />)}
+ 153 |                 </div>
+ 154 |               ) : destinations.length > 0 ? (
+ 155 |                 {destinations.map((dest, idx) => (
+     :                              ^
+ 156 |                   <Link
+ 157 |                     key={idx}
+ 158 |                     href={`/blog/${dest.slug}`}
+     `----
+
+Caused by:
+    Syntax Error
+
+Import trace for requested module:
+./app/du-lich/page.tsx
+⚠ Fast Refresh had to perform a full reload due to a runtime error.
+⚠ Fast Refresh had to perform a full reload due to a runtime error.
+⨯ ./app/du-lich/page.tsx
+Error:   x Expected a semicolon
+     ,-[C:\Users\ASUS\Desktop\Ungdungcuatoi\diadiemtot\app\du-lich\page.tsx:155:1]
+ 152 |                   {[1, 2, 3].map(i => <div key={i} className="animate-pulse bg-slate-200 h-64 rounded-lg" />)}
+ 153 |                 </div>
+ 154 |               ) : destinations.length > 0 ? (
+ 155 |                 {destinations.map((dest, idx) => (
+     :                              ^
+ 156 |                   <Link
+ 157 |                     key={idx}
+ 158 |                     href={`/blog/${dest.slug}`}
+     `----
+  x Expected '</', got '.'
+     ,-[C:\Users\ASUS\Desktop\Ungdungcuatoi\diadiemtot\app\du-lich\page.tsx:155:1]
+ 152 |                   {[1, 2, 3].map(i => <div key={i} className="animate-pulse bg-slate-200 h-64 rounded-lg" />)}
+ 153 |                 </div>
+ 154 |               ) : destinations.length > 0 ? (
+ 155 |                 {destinations.map((dest, idx) => (
+     :                              ^
+ 156 |                   <Link
+ 157 |                     key={idx}
+ 158 |                     href={`/blog/${dest.slug}`}
+     `----
+
+Caused by:
+    Syntax Error
+
+Import trace for requested module:
+./app/du-lich/page.tsx
+[browser] Uncaught ModuleBuildError: Module build failed (from ./node_modules/next/dist/build/webpack/loaders/next-swc-loader.js):
+Error:   x Expected a semicolon
+     ,-[C:\Users\ASUS\Desktop\Ungdungcuatoi\diadiemtot\app\du-lich\page.tsx:155:1]
+ 152 |                   {[1, 2, 3].map(i => <div key={i} className="animate-pulse bg-slate-200 h-64 rounded-lg" />)}
+ 153 |                 </div>
+ 154 |               ) : destinations.length > 0 ? (
+ 155 |                 {destinations.map((dest, idx) => (
+     :                              ^
+ 156 |                   <Link
+ 157 |                     key={idx}
+ 158 |                     href={`/blog/${dest.slug}`}
+     `----
+  x Expected '</', got '.'
+     ,-[C:\Users\ASUS\Desktop\Ungdungcuatoi\diadiemtot\app\du-lich\page.tsx:155:1]
+ 152 |                   {[1, 2, 3].map(i => <div key={i} className="animate-pulse bg-slate-200 h-64 rounded-lg" />)}
+ 153 |                 </div>
+ 154 |               ) : destinations.length > 0 ? (
+ 155 |                 {destinations.map((dest, idx) => (
+     :                              ^
+ 156 |                   <Link
+ 157 |                     key={idx}
+ 158 |                     href={`/blog/${dest.slug}`}
+     `----
+
+
+Caused by:
+    Syntax Error
+⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+⨯ ReferenceError: hotels is not defined
+    at DuLich (app\du-lich\page.tsx:234:21)
+  232 |                       </Link>
+  233 |                     ))
+> 234 |                   : hotels.map((hotel, idx) => (
+      |                     ^
+  235 |                       <Link
+  236 |                         key={idx}
+  237 |                         href={`/blog?category=Khách%20sạn&province=${encodeURIComponent(h... {
+  digest: '1596969727'
+}
+⚠ Fast Refresh had to perform a full reload due to a runtime error.
+⨯ ReferenceError: tips is not defined
+    at DuLich (app\du-lich\page.tsx:326:18)
+  324 |               <h2 className="text-sm font-black text-[#00173a] uppercase tracking-widest ...
+  325 |               <div className="flex flex-wrap gap-2">
+> 326 |                 {tips.map((tip, idx) => (
+      |                  ^
+  327 |                   <Link
+  328 |                     key={idx}
+  329 |                     href={`/blog?search=${encodeURIComponent(tip.title)}`} {
+  digest: '656176200'
+}
+⨯ ./app/du-lich/page.tsx
+Error:   x Expected '</', got 'jsx text'
+     ,-[C:\Users\ASUS\Desktop\Ungdungcuatoi\diadiemtot\app\du-lich\page.tsx:344:1]
+ 341 |                       </button>
+ 342 |                     ))}
+ 343 |                   </div>
+ 344 | ,->             </section>
+ 345 | |   
+ 346 | `->             {/* Newsletter */}
+ 347 |                 <section className="bg-[#bb0012] text-white p-6 rounded-lg">
+ 348 |                   <h2 className="text-lg font-black uppercase tracking-tighter mb-2">Du Lịch Giá Scooter</h2>
+ 349 |                   <p className="text-xs text-white/80 mb-4">Nhận deals du lịch hot nhất</p>
+     `----
+
+Caused by:
+    Syntax Error
+
+Import trace for requested module:
+./app/du-lich/page.tsx
+[browser] Uncaught ModuleBuildError: Module build failed (from ./node_modules/next/dist/build/webpack/loaders/next-swc-loader.js):
+Error:   x Expected '</', got 'jsx text'
+     ,-[C:\Users\ASUS\Desktop\Ungdungcuatoi\diadiemtot\app\du-lich\page.tsx:344:1]
+ 341 |                       </button>
+ 342 |                     ))}
+ 343 |                   </div>
+ 344 | ,->             </section>
+ 345 | |   
+ 346 | `->             {/* Newsletter */}
+ 347 |                 <section className="bg-[#bb0012] text-white p-6 rounded-lg">
+ 348 |                   <h2 className="text-lg font-black uppercase tracking-tighter mb-2">Du Lịch Giá Scooter</h2>
+ 349 |                   <p className="text-xs text-white/80 mb-4">Nhận deals du lịch hot nhất</p>
+     `----
+
+
+Caused by:
+    Syntax Error
+⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[AI Writer] API Error: 503 {
+  "error": {
+    "code": 503,
+    "message": "This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.",
+    "status": "UNAVAILABLE"
+  }
+}
+
+[AI Writer] API Error: 503 {
+  "error": {
+    "code": 503,
+    "message": "This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.",
+    "status": "UNAVAILABLE"
+  }
+}
+
+[parseAIResponse] Used fallback - title found, content may be truncated
+[parseAIResponse] Used fallback - title found, content may be truncated

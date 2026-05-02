@@ -1,0 +1,25 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl *)",
+      "Bash(node -e ' *)",
+      "Bash(npx prisma *)",
+      "Bash(npx next *)",
+      "WebFetch(domain:plo.vn)",
+      "Bash(node *)",
+      "Bash(npm run *)",
+      "Bash(npx tsc *)",
+      "Bash(npx prettier *)",
+      "Bash(npx typescript *)",
+      "Bash(npx @babel-parser --version)",
+      "Bash(npx @babel/core --version)",
+      "Bash(xxd app/admin/components/RichTextEditor.tsx)",
+      "Bash(sed -n '314p')",
+      "Bash(sed -n '314p' app/admin/components/RichTextEditor.tsx)",
+      "Bash(awk 'NR>=265 && NR<=330 {print NR\": \"$0}' app/admin/components/RichTextEditor.tsx)",
+      "Bash(awk 'NR>=260 && NR<=330 {print NR\": \"$0}' app/admin/components/RichTextEditor.tsx)",
+      "Bash(npx ts-node *)",
+      "Bash(npm install *)"
+    ]
+  }
+}

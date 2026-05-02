@@ -1,0 +1,3 @@
+http://localhost:3000/admin?tab=ai-writer, khi nhập chủ đề bài viết 'http://localhost:3000/admin?tab=ai-writer' và bấm ' BẮT ĐẦU VIẾT BÀI NGAY' bị lỗi '⚠️ Lỗi hệ thống
+
+Lưu nháp thất bại: Title and content required'
