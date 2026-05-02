@@ -28,12 +28,16 @@ export async function GET(request: Request) {
       take: limit,
       include: {
         user: { select: { name: true } },
-        province: { select: { name: true } },
+        location: {
+          include: {
+            province: { select: { name: true } },
+          },
+        },
         industry: { select: { name: true } },
       },
     });
 
-    return NextResponse(businesses);
+    return NextResponse.json(businesses);
   } catch (error) {
     console.error('Error fetching businesses:', error);
     return NextResponse.json({ error: 'Failed to fetch businesses' }, { status: 500 });

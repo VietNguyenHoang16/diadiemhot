@@ -1,5 +1,5 @@
 const LEGACY_PROVINCE_META_REGEX = /^<!--province:(.*?)-->\s*/i;
-const BLOG_META_REGEX = /^<!--blog-meta:(.*?)-->\s*/is;
+const BLOG_META_REGEX = /^<!--blog-meta:([\s\S]*?)-->\s*/i;
 
 export type BlogContentMetadata = {
   province?: string;

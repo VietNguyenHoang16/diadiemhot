@@ -134,7 +134,7 @@ export default function DichVuPage() {
 
   return (
     <main className="min-h-screen bg-white">
-      <Header activeLink="dich-vu" as any />
+      <Header activeLink="dich-vu" />
 
       {/* SERVICES GRID */}
       <section id="dich-vu" className="py-20 px-8 bg-slate-50">

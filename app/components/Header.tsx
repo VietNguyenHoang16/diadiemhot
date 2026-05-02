@@ -7,7 +7,7 @@ import { Search, Bell } from 'lucide-react';
 
 interface HeaderProps {
   showNewsTicker?: boolean;
-  activeLink?: 'home' | 'blog' | 'du-lich' | 'phong-cach';
+  activeLink?: 'home' | 'blog' | 'du-lich' | 'phong-cach' | 'dich-vu';
 }
 
 export default function Header({ showNewsTicker = false, activeLink }: HeaderProps) {
