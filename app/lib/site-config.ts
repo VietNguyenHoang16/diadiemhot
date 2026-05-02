@@ -1,4 +1,5 @@
 export const SITE_NAME = 'Địa Điểm Hot';
+export const SITE_TAB_TITLE = 'Quảng Bá Doanh Nghiệp & Review Địa Điểm Hot';
 export const SITE_TITLE = 'Khám Phá Địa Điểm, Review Và Cẩm Nang Du Lịch';
 export const SITE_DESCRIPTION = 'Địa Điểm Hot chia sẻ review địa điểm, cẩm nang du lịch, danh sách xếp hạng và trải nghiệm thực tế để người đọc tìm nơi đáng đi nhanh hơn.';
 export const SITE_AUTHOR = 'Ban biên tập Địa Điểm Hot';

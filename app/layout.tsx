@@ -6,6 +6,7 @@ import {
   SITE_AUTHOR,
   SITE_DESCRIPTION,
   SITE_NAME,
+  SITE_TAB_TITLE,
   SITE_TITLE,
   getSiteUrl,
 } from "@/app/lib/site-config";
@@ -19,11 +20,16 @@ const beVietnamPro = Be_Vietnam_Pro({
 export const metadata: Metadata = {
   metadataBase: new URL(getSiteUrl()),
   title: {
-    default: SITE_NAME,
+    default: SITE_TAB_TITLE,
     template: `%s | ${SITE_NAME}`,
   },
   description: SITE_DESCRIPTION,
   applicationName: SITE_NAME,
+  icons: {
+    icon: [{ url: '/icon.png', type: 'image/png' }],
+    apple: [{ url: '/apple-icon.png', type: 'image/png' }],
+    shortcut: ['/icon.png'],
+  },
   authors: [{ name: SITE_AUTHOR }],
   creator: SITE_AUTHOR,
   publisher: SITE_NAME,
