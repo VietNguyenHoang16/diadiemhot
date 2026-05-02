@@ -4,6 +4,7 @@ import { ChevronRight, Star, MapPin, Utensils, Plane, Smartphone, Shirt } from '
 import Header from '@/app/components/Header';
 import Footer from '@/app/components/Footer';
 import ContactForm from '@/app/components/ContactForm';
+import { hasDatabaseUrl } from '@/app/lib/public-db';
 import { prisma } from '@/app/lib/db';
 import { isRankingCategory, looksLikeRankingPostTitle } from '@/app/lib/ranking-posts';
 
@@ -24,31 +25,64 @@ function dailyShuffle<T>(arr: T[]): T[] {
 }
 
 async function getHomepageData() {
-  const [allPosts, latestReviews, tags, categories] = await Promise.all([
-    prisma.blogPost.findMany({
-      where: { status: 'PUBLISHED' },
-      orderBy: { createdAt: 'desc' },
-      take: 30,
-      include: {
-        tags: { include: { tag: true } },
-        province: { select: { name: true } },
-      },
-    }),
-    prisma.review.findMany({
-      where: { status: 'PUBLISHED' },
-      orderBy: { createdAt: 'desc' },
-      take: 6,
-      include: { business: { select: { name: true, logo: true } } },
-    }),
-    prisma.tag.findMany({
-      include: { _count: { select: { posts: true } } },
-      orderBy: { name: 'asc' },
-    }),
-    prisma.category.findMany({
-      orderBy: { order: 'asc' },
-      take: 8,
-    }),
-  ]);
+  const emptyData = {
+    heroPost: null,
+    heroSidePosts: [],
+    rankingPosts: [],
+    newsPosts: [],
+    trendingPosts: [],
+    guidePosts: [],
+    latestReviews: [],
+    tags: [],
+    categories: [],
+    totalPosts: 0,
+    loadFailed: true,
+  };
+
+  if (!hasDatabaseUrl()) {
+    return emptyData;
+  }
+
+  const allPostsQuery = prisma.blogPost.findMany({
+    where: { status: 'PUBLISHED' },
+    orderBy: { createdAt: 'desc' },
+    take: 30,
+    include: {
+      tags: { include: { tag: true } },
+      province: { select: { name: true } },
+    },
+  });
+  const latestReviewsQuery = prisma.review.findMany({
+    where: { status: 'PUBLISHED' },
+    orderBy: { createdAt: 'desc' },
+    take: 6,
+    include: { business: { select: { name: true, logo: true } } },
+  });
+  const tagsQuery = prisma.tag.findMany({
+    include: { _count: { select: { posts: true } } },
+    orderBy: { name: 'asc' },
+  });
+  const categoriesQuery = prisma.category.findMany({
+    orderBy: { order: 'asc' },
+    take: 8,
+  });
+
+  let allPosts: Awaited<typeof allPostsQuery> = [];
+  let latestReviews: Awaited<typeof latestReviewsQuery> = [];
+  let tags: Awaited<typeof tagsQuery> = [];
+  let categories: Awaited<typeof categoriesQuery> = [];
+
+  try {
+    [allPosts, latestReviews, tags, categories] = await Promise.all([
+      allPostsQuery,
+      latestReviewsQuery,
+      tagsQuery,
+      categoriesQuery,
+    ]);
+  } catch (error) {
+    console.error('[homepage] Failed to load public data', error);
+    return emptyData;
+  }
 
   // Split posts into sections using deterministic shuffle for daily variety
   const postsWithImage = allPosts.filter(p => p.image);
@@ -74,7 +108,19 @@ async function getHomepageData() {
 
   const guidePosts = dailyShuffle(allPosts.filter(p => !usedIds.has(p.id) && (p.category === 'Du lich' || p.title?.toLowerCase().includes('hướng dẫn')))).slice(0, 3);
 
-  return { heroPost, heroSidePosts, rankingPosts, newsPosts, trendingPosts, guidePosts, latestReviews, tags, categories, totalPosts: allPosts.length };
+  return {
+    heroPost,
+    heroSidePosts,
+    rankingPosts,
+    newsPosts,
+    trendingPosts,
+    guidePosts,
+    latestReviews,
+    tags,
+    categories,
+    totalPosts: allPosts.length,
+    loadFailed: false,
+  };
 }
 
 // ---- Helper: estimate read time ----
@@ -88,13 +134,18 @@ export default async function Home() {
   await connection();
 
   const data = await getHomepageData();
-  const { heroPost, heroSidePosts, rankingPosts, newsPosts, trendingPosts, guidePosts, latestReviews, tags, categories } = data;
+  const { heroPost, heroSidePosts, rankingPosts, newsPosts, trendingPosts, guidePosts, latestReviews, tags, categories, loadFailed } = data;
 
   return (
     <main className="min-h-screen bg-white">
       <Header showNewsTicker={true} activeLink="home" />
 
       <div className="max-w-screen-2xl mx-auto pt-28 px-8 pb-16">
+        {loadFailed && (
+          <section className="mb-8 rounded-lg border border-[#bb0012]/15 bg-[#fff7f7] px-5 py-4 text-sm font-medium text-slate-600">
+            Trang táº¡m thá»i chÆ°a táº£i Ä‘Æ°á»£c dá»¯ liá»‡u má»›i nháº¥t. Vui lÃ²ng kiá»ƒm tra káº¿t ná»‘i cÆ¡ sá»Ÿ dá»¯ liá»‡u trÃªn mÃ´i trÆ°á»ng deploy vÃ  thá»­ táº£i láº¡i.
+          </section>
+        )}
         <div className="grid grid-cols-12 gap-8">
           {/* Left Side Content (Main Feed) */}
           <div className="col-span-12 lg:col-span-9 space-y-12">

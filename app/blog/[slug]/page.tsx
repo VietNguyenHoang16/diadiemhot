@@ -10,6 +10,7 @@ import ArticleShareButtons from '@/app/components/ArticleShareButtons';
 import ContactForm from '@/app/components/ContactForm';
 import { calculateExpectedViews } from '@/app/lib/auto-views';
 import { normalizeLegacyFigurePlaceholders } from '@/app/lib/image-placeholders';
+import { safePublicDbQuery } from '@/app/lib/public-db';
 import {
   getPublicBlogPostBySlug,
   getPublishedBlogPostBySlug,
@@ -148,43 +149,47 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
   }
 
   const [randomPosts, morePosts] = await Promise.all([
-    prisma.blogPost.findMany({
-      where: {
-        status: 'PUBLISHED',
-        NOT: { id: post.id },
-      },
-      select: {
-        id: true,
-        title: true,
-        slug: true,
-        image: true,
-        category: true,
-        excerpt: true,
-      },
-      take: 5,
-      orderBy: [
-        { publishedAt: 'desc' },
-        { createdAt: 'desc' },
-      ],
-    }),
-    prisma.blogPost.findMany({
-      where: {
-        status: 'PUBLISHED',
-        NOT: { id: post.id },
-      },
-      select: {
-        id: true,
-        title: true,
-        slug: true,
-        image: true,
-        category: true,
-      },
-      take: 4,
-      orderBy: [
-        { updatedAt: 'desc' },
-        { publishedAt: 'desc' },
-      ],
-    }),
+    safePublicDbQuery(`blog-random:${post.slug}`, [], () =>
+      prisma.blogPost.findMany({
+        where: {
+          status: 'PUBLISHED',
+          NOT: { id: post.id },
+        },
+        select: {
+          id: true,
+          title: true,
+          slug: true,
+          image: true,
+          category: true,
+          excerpt: true,
+        },
+        take: 5,
+        orderBy: [
+          { publishedAt: 'desc' },
+          { createdAt: 'desc' },
+        ],
+      })
+    ),
+    safePublicDbQuery(`blog-more:${post.slug}`, [], () =>
+      prisma.blogPost.findMany({
+        where: {
+          status: 'PUBLISHED',
+          NOT: { id: post.id },
+        },
+        select: {
+          id: true,
+          title: true,
+          slug: true,
+          image: true,
+          category: true,
+        },
+        take: 4,
+        orderBy: [
+          { updatedAt: 'desc' },
+          { publishedAt: 'desc' },
+        ],
+      })
+    ),
   ]);
 
   const title = post.title;

@@ -1,6 +1,7 @@
 import { cache } from 'react';
 import { prisma } from '@/app/lib/db';
 import { extractBlogContentMetadata, stripBlogContentMetadata } from '@/app/lib/blog-post-meta';
+import { safePublicDbQuery } from '@/app/lib/public-db';
 import { buildDescription, uniqKeywords } from '@/app/lib/site-config';
 
 function normalizeBlogPost<T extends {
@@ -34,44 +35,50 @@ function normalizeBlogPost<T extends {
 }
 
 export const getPublishedBlogPostBySlug = cache(async (slug: string) => {
-  const post = await prisma.blogPost.findFirst({
-    where: {
-      slug,
-      status: 'PUBLISHED',
-    },
-    include: {
-      province: { select: { name: true } },
-      tags: { include: { tag: true } },
-    },
-  });
+  const post = await safePublicDbQuery(`blog-post:${slug}`, null, () =>
+    prisma.blogPost.findFirst({
+      where: {
+        slug,
+        status: 'PUBLISHED',
+      },
+      include: {
+        province: { select: { name: true } },
+        tags: { include: { tag: true } },
+      },
+    })
+  );
 
   return post ? normalizeBlogPost(post) : null;
 });
 
 export const getPublicBlogPostBySlug = cache(async (slug: string) => {
-  const post = await prisma.blogPost.findUnique({
-    where: { slug },
-    include: {
-      province: { select: { name: true } },
-      tags: { include: { tag: true } },
-    },
-  });
+  const post = await safePublicDbQuery(`blog-post-preview:${slug}`, null, () =>
+    prisma.blogPost.findUnique({
+      where: { slug },
+      include: {
+        province: { select: { name: true } },
+        tags: { include: { tag: true } },
+      },
+    })
+  );
 
   return post ? normalizeBlogPost(post) : null;
 });
 
 export const getPublishedBlogIndexPosts = cache(async () => {
-  const posts = await prisma.blogPost.findMany({
-    where: { status: 'PUBLISHED' },
-    include: {
-      province: { select: { name: true } },
-      tags: { include: { tag: true } },
-    },
-    orderBy: [
-      { publishedAt: 'desc' },
-      { createdAt: 'desc' },
-    ],
-  });
+  const posts = await safePublicDbQuery('blog-index', [], () =>
+    prisma.blogPost.findMany({
+      where: { status: 'PUBLISHED' },
+      include: {
+        province: { select: { name: true } },
+        tags: { include: { tag: true } },
+      },
+      orderBy: [
+        { publishedAt: 'desc' },
+        { createdAt: 'desc' },
+      ],
+    })
+  );
 
   return posts.map(normalizeBlogPost);
 });
