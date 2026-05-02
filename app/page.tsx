@@ -58,6 +58,7 @@ async function getHomepageData() {
     newsPosts: [],
     trendingPosts: [],
     guidePosts: [],
+    archivePosts: [],
     latestReviews: [],
     tags: [],
     categories: [],
@@ -72,7 +73,6 @@ async function getHomepageData() {
   const allPostsQuery = prisma.blogPost.findMany({
     where: { status: 'PUBLISHED' },
     orderBy: { createdAt: 'desc' },
-    take: 30,
     include: {
       tags: { include: { tag: true } },
       province: { select: { name: true } },
@@ -134,6 +134,9 @@ async function getHomepageData() {
 
   const guidePosts = dailyShuffle(allPosts.filter(p => !usedIds.has(p.id) && (p.category === 'Du lich' || p.title?.toLowerCase().includes('hướng dẫn')))).slice(0, 3);
 
+  const guidePostIds = new Set(guidePosts.map((post) => post.id));
+  const archivePosts = allPosts.filter((post) => !usedIds.has(post.id) && !guidePostIds.has(post.id));
+
   return {
     heroPost,
     heroSidePosts,
@@ -141,6 +144,7 @@ async function getHomepageData() {
     newsPosts,
     trendingPosts,
     guidePosts,
+    archivePosts,
     latestReviews,
     tags,
     categories,
@@ -160,7 +164,7 @@ export default async function Home() {
   await connection();
 
   const data = await getHomepageData();
-  const { heroPost, heroSidePosts, rankingPosts, newsPosts, trendingPosts, guidePosts, latestReviews, tags, categories, loadFailed } = data;
+  const { heroPost, heroSidePosts, rankingPosts, newsPosts, trendingPosts, guidePosts, archivePosts, latestReviews, tags, categories, totalPosts, loadFailed } = data;
 
   return (
     <main className="min-h-screen bg-white">
@@ -353,6 +357,60 @@ export default async function Home() {
                       </div>
                       <p className="text-sm text-slate-600 line-clamp-4">{review.comment}</p>
                     </div>
+                  ))}
+                </div>
+              </section>
+            )}
+
+            {archivePosts.length > 0 && (
+              <section>
+                <div className="flex items-end justify-between mb-8 gap-4">
+                  <div>
+                    <h2 className="text-3xl font-black text-[#00173a] uppercase tracking-tighter">Toàn Bộ Bài Viết</h2>
+                    <p className="mt-2 text-sm font-medium text-slate-500">
+                      Trang chủ hiển thị toàn bộ {totalPosts.toLocaleString('vi-VN')} bài đã xuất bản, nên bạn có thể cuộn xuống để xem hết.
+                    </p>
+                  </div>
+                  <Link href="/blog" className="text-sm font-bold text-[#bb0012] uppercase tracking-widest hover:underline">
+                    Mở Blog
+                  </Link>
+                </div>
+
+                <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
+                  {archivePosts.map((post) => (
+                    <Link
+                      key={post.id}
+                      href={`/blog/${post.slug}`}
+                      className="group overflow-hidden rounded-[1.75rem] border border-slate-100 bg-white shadow-sm transition-colors hover:border-[#bb0012]/20"
+                    >
+                      <div className="relative aspect-[16/10] overflow-hidden bg-slate-200">
+                        <img
+                          alt={post.title}
+                          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                          src={getHomepageImage(post.image)}
+                        />
+                        <div className="absolute left-4 top-4 rounded-full bg-white/95 px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.18em] text-[#bb0012] shadow-sm">
+                          {post.category || 'Bài viết'}
+                        </div>
+                      </div>
+                      <div className="p-5">
+                        <h3 className="line-clamp-2 text-xl font-black leading-tight text-[#00173a] transition-colors group-hover:text-[#bb0012]">
+                          {post.title}
+                        </h3>
+                        <p className="mt-3 line-clamp-3 text-sm font-medium leading-relaxed text-slate-500">
+                          {post.excerpt}
+                        </p>
+                        <div className="mt-4 flex items-center gap-3 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">
+                          <span>{readTime(post.content)}</span>
+                          {post.province?.name && (
+                            <>
+                              <span className="h-1 w-1 rounded-full bg-[#bb0012]" />
+                              <span>{post.province.name}</span>
+                            </>
+                          )}
+                        </div>
+                      </div>
+                    </Link>
                   ))}
                 </div>
               </section>
