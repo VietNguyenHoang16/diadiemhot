@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { connection } from 'next/server';
 import { ChevronRight, Star, MapPin, Utensils, Plane, Smartphone, Shirt } from 'lucide-react';
 import Header from '@/app/components/Header';
 import Footer from '@/app/components/Footer';
@@ -7,7 +8,6 @@ import { prisma } from '@/app/lib/db';
 import { isRankingCategory, looksLikeRankingPostTitle } from '@/app/lib/ranking-posts';
 
 // Revalidate every hour — homepage auto-refreshes with new content
-export const revalidate = 3600;
 
 // ---- Deterministic daily shuffle using date seed ----
 function dailyShuffle<T>(arr: T[]): T[] {
@@ -85,6 +85,8 @@ function readTime(content?: string | null): string {
 }
 
 export default async function Home() {
+  await connection();
+
   const data = await getHomepageData();
   const { heroPost, heroSidePosts, rankingPosts, newsPosts, trendingPosts, guidePosts, latestReviews, tags, categories } = data;
 
