@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import { connection } from 'next/server';
 import { ChevronRight, Star, MapPin, Utensils, Plane, Smartphone, Shirt } from 'lucide-react';
 import Header from '@/app/components/Header';
 import Footer from '@/app/components/Footer';
@@ -8,6 +7,8 @@ import { hasDatabaseUrl } from '@/app/lib/public-db';
 import { prisma } from '@/app/lib/db';
 import { isRankingCategory, looksLikeRankingPostTitle } from '@/app/lib/ranking-posts';
 import { toAbsoluteImageUrl } from '@/app/lib/site-config';
+
+export const revalidate = 3600;
 
 // Revalidate every hour — homepage auto-refreshes with new content
 
@@ -161,8 +162,6 @@ function readTime(content?: string | null): string {
 }
 
 export default async function Home() {
-  await connection();
-
   const data = await getHomepageData();
   const { heroPost, heroSidePosts, rankingPosts, newsPosts, trendingPosts, guidePosts, archivePosts, latestReviews, tags, categories, totalPosts, loadFailed } = data;
 
@@ -170,38 +169,38 @@ export default async function Home() {
     <main className="min-h-screen bg-white">
       <Header showNewsTicker={true} activeLink="home" />
 
-      <div className="max-w-screen-2xl mx-auto pt-28 px-8 pb-16">
+      <div className="mx-auto max-w-screen-2xl overflow-x-clip px-4 pb-16 pt-24 sm:px-6 lg:px-8 lg:pt-28">
         {loadFailed && (
           <section className="mb-8 rounded-lg border border-[#bb0012]/15 bg-[#fff7f7] px-5 py-4 text-sm font-medium text-slate-600">
             Trang táº¡m thá»i chÆ°a táº£i Ä‘Æ°á»£c dá»¯ liá»‡u má»›i nháº¥t. Vui lÃ²ng kiá»ƒm tra káº¿t ná»‘i cÆ¡ sá»Ÿ dá»¯ liá»‡u trÃªn mÃ´i trÆ°á»ng deploy vÃ  thá»­ táº£i láº¡i.
           </section>
         )}
-        <div className="grid grid-cols-12 gap-8">
+        <div className="grid grid-cols-12 gap-6 lg:gap-8">
           {/* Left Side Content (Main Feed) */}
-          <div className="col-span-12 lg:col-span-9 space-y-12">
+          <div className="col-span-12 min-w-0 space-y-12 lg:col-span-9">
 
             {/* 1. Hero Grid */}
-            <section className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <section className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6">
               {/* Main Featured Article */}
               {heroPost ? (
-                <Link href={`/blog/${heroPost.slug}`} className="relative group overflow-hidden rounded-lg bg-[#dfe3e8] aspect-[4/5] md:aspect-auto h-full min-h-[400px] block">
+                <Link href={`/blog/${heroPost.slug}`} className="relative block h-full min-h-[340px] overflow-hidden rounded-lg bg-[#dfe3e8] aspect-[4/5] group sm:min-h-[400px] md:aspect-auto">
                   <img
                     alt={heroPost.title}
                     className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                     src={getHomepageImage(heroPost.image)}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#00173a]/90 to-transparent" />
-                  <div className="absolute bottom-0 p-8">
+                  <div className="absolute bottom-0 p-5 sm:p-8">
                     <span className="inline-block bg-[#bb0012] px-3 py-1 text-xs font-bold text-white uppercase tracking-widest mb-4">
                       {heroPost.category || 'Nổi Bật'}
                     </span>
-                    <h2 className="text-4xl font-black text-white leading-tight mb-4 tracking-tighter">
+                    <h2 className="mb-4 text-2xl font-black leading-tight tracking-tighter text-white sm:text-4xl">
                       {heroPost.title}
                     </h2>
-                    <p className="text-white/80 text-base max-w-lg mb-6 line-clamp-2">
+                    <p className="mb-6 max-w-lg text-sm text-white/80 line-clamp-2 sm:text-base">
                       {heroPost.excerpt}
                     </p>
-                    <div className="flex items-center gap-3 text-white/60 text-xs font-black uppercase tracking-widest">
+                    <div className="flex flex-wrap items-center gap-3 text-xs font-black uppercase tracking-widest text-white/60">
                       <span>By Địa Điểm Hot</span>
                       <span className="w-1 h-1 bg-[#bb0012] rounded-full" />
                       <span>{readTime(heroPost.content)}</span>
@@ -219,9 +218,9 @@ export default async function Home() {
               )}
 
               {/* 4 Smaller Items */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 {heroSidePosts.length > 0 ? heroSidePosts.map((post, i) => (
-                <Link key={post.id} href={`/blog/${post.slug}`} className={`group relative min-h-[240px] rounded-lg overflow-hidden flex flex-col justify-end transition-colors ${i === heroSidePosts.length - 1 ? 'border-2 border-[#bb0012]/10' : 'border border-slate-100 hover:border-[#bb0012]/20'} ${post.image ? 'bg-[#00173a]' : 'bg-white'}`}>
+                <Link key={post.id} href={`/blog/${post.slug}`} className={`group relative flex min-h-[220px] flex-col justify-end overflow-hidden rounded-lg transition-colors sm:min-h-[240px] ${i === heroSidePosts.length - 1 ? 'border-2 border-[#bb0012]/10' : 'border border-slate-100 hover:border-[#bb0012]/20'} ${post.image ? 'bg-[#00173a]' : 'bg-white'}`}>
                     <img
                       alt={post.title}
                       className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
@@ -253,15 +252,15 @@ export default async function Home() {
             {/* 2. Ranking Posts */}
             {rankingPosts.length > 0 && (
               <section>
-                <div className="flex items-end justify-between mb-8">
+                <div className="mb-8 flex flex-wrap items-end justify-between gap-3">
                   <h2 className="text-3xl font-black text-[#00173a] uppercase tracking-tighter">Top & Xếp Hạng</h2>
                   <Link href="/blog" className="text-sm font-bold text-[#bb0012] uppercase tracking-widest hover:underline">
                     Xem Tất Cả
                   </Link>
                 </div>
-                <div className="flex gap-4 overflow-x-auto pb-4 -mx-2 px-2 snap-x scrollbar-thin">
+                <div className="-mx-4 flex gap-4 overflow-x-auto px-4 pb-4 snap-x scrollbar-thin sm:mx-0 sm:px-0">
                   {rankingPosts.map(post => (
-                    <Link key={post.id} href={`/blog/${post.slug}`} className="min-w-[280px] snap-start group relative block">
+                    <Link key={post.id} href={`/blog/${post.slug}`} className="group relative block w-[calc(100vw-2.5rem)] max-w-[320px] shrink-0 snap-start sm:min-w-[280px] sm:w-auto">
                       <div className="aspect-[16/10] bg-slate-200 rounded overflow-hidden mb-3 relative">
                         {post.image ? (
                           <img alt={post.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform" src={getHomepageImage(post.image)} />
@@ -418,7 +417,7 @@ export default async function Home() {
           </div>
 
           {/* Right Sidebar */}
-          <aside className="col-span-12 lg:col-span-3 space-y-12">
+          <aside className="col-span-12 min-w-0 space-y-12 lg:col-span-3">
 
             {/* Trending */}
             {trendingPosts.length > 0 && (
@@ -437,7 +436,7 @@ export default async function Home() {
                           {(idx + 1).toString().padStart(2, '0')}
                         </span>
                       </div>
-                      <div>
+                      <div className="min-w-0">
                         <h4 className="text-base font-bold text-[#00173a] group-hover:underline line-clamp-2">{post.title}</h4>
                         <p className="text-xs text-slate-500 uppercase font-bold mt-1">{post.category}</p>
                       </div>
@@ -484,7 +483,7 @@ export default async function Home() {
             )}
 
             {/* Newsletter */}
-            <section className="bg-[#bb0012] text-white p-8 rounded-lg">
+            <section className="rounded-lg bg-[#bb0012] p-6 text-white sm:p-8">
               <h2 className="text-2xl font-black uppercase tracking-tighter mb-4">Địa Điểm Hot Daily</h2>
               <p className="text-sm text-white/80 mb-6 leading-relaxed">
                 Nhận những đánh giá và tin tức được chọn lọc kỹ càng gửi đến hộp thư của bạn mỗi sáng.

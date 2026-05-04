@@ -109,17 +109,17 @@ export default function Header({ showNewsTicker = false, activeLink }: HeaderPro
   }, []);
 
   return (
-    <header className="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-xl shadow-sm">
+    <header className="fixed left-0 right-0 top-0 z-50 overflow-x-clip bg-white/80 shadow-sm backdrop-blur-xl">
       {showNewsTicker ? (
-        <div className="bg-[#00173a] text-white py-2 px-8 overflow-hidden whitespace-nowrap">
-          <div className="flex items-center gap-4 text-xs tracking-[0.2em] font-bold uppercase">
+        <div className="overflow-hidden whitespace-nowrap bg-[#00173a] px-4 py-2 text-white sm:px-6 lg:px-8">
+          <div className="flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.2em] sm:gap-4 sm:text-xs">
             <span className="bg-[#bb0012] px-2 py-0.5 rounded-sm">Nổi Bật</span>
             <p className="animate-pulse">Khám Phá Các Bài Review Địa Điểm, Du Lịch Và Xếp Hạng Mới Nhất Mỗi Ngày Tại Địa Điểm Hot.</p>
           </div>
         </div>
       ) : null}
-      <nav className="flex justify-between items-center px-8 h-16 w-full max-w-screen-2xl mx-auto">
-        <Link href="/" className="flex items-center h-10">
+      <nav className="mx-auto flex h-16 w-full max-w-screen-2xl min-w-0 items-center justify-between gap-3 px-4 sm:px-6 lg:px-8">
+        <Link href="/" className="flex h-8 shrink-0 items-center sm:h-10">
           <Image src="/logo.png" alt="Thành Đạt" width={120} height={32} className="h-full w-auto object-contain" priority />
         </Link>
         <div className="hidden lg:flex items-center space-x-6 text-sm font-semibold">
@@ -178,17 +178,17 @@ export default function Header({ showNewsTicker = false, activeLink }: HeaderPro
             Dịch Vụ
           </Link>
         </div>
-        <div className="flex items-center gap-4">
+        <div className="flex shrink-0 items-center gap-2 sm:gap-4">
           <div className="relative search-trigger">
             <button
               suppressHydrationWarning={true}
               onClick={() => setShowSearch(!showSearch)}
-              className="text-slate-600 hover:text-slate-900"
+              className="shrink-0 text-slate-600 hover:text-slate-900"
             >
               <Search className="w-5 h-5" />
             </button>
             {showSearch && (
-              <div className="absolute right-0 top-full mt-2 w-80 bg-white shadow-2xl rounded-xl border border-slate-100 z-50 overflow-hidden">
+              <div className="absolute right-0 top-full z-50 mt-2 w-[min(20rem,calc(100vw-1rem))] max-w-[calc(100vw-1rem)] overflow-hidden rounded-xl border border-slate-100 bg-white shadow-2xl sm:w-80">
                 <div className="p-3 border-b border-slate-100">
                   <input
                     autoFocus
@@ -239,13 +239,13 @@ export default function Header({ showNewsTicker = false, activeLink }: HeaderPro
             <button
               suppressHydrationWarning={true}
               onClick={() => setShowNotifications(!showNotifications)}
-              className="text-slate-600 hover:text-slate-900 relative"
+              className="relative shrink-0 text-slate-600 hover:text-slate-900"
             >
               <Bell className="w-5 h-5" />
               <span className="absolute -top-1 -right-1 w-2 h-2 bg-[#bb0012] rounded-full"></span>
             </button>
             {showNotifications && (
-              <div className="absolute right-0 top-full mt-2 w-80 bg-white shadow-2xl rounded-xl border border-slate-100 z-50 overflow-hidden">
+              <div className="absolute right-0 top-full z-50 mt-2 w-[min(20rem,calc(100vw-1rem))] max-w-[calc(100vw-1rem)] overflow-hidden rounded-xl border border-slate-100 bg-white shadow-2xl sm:w-80">
                 <div className="px-4 py-3 border-b border-slate-100 bg-slate-50">
                   <p className="text-xs font-black uppercase tracking-widest text-[#00173a]">Thông Báo</p>
                 </div>
@@ -256,7 +256,7 @@ export default function Header({ showNewsTicker = false, activeLink }: HeaderPro
               </div>
             )}
           </div>
-          <Link href="/dang-nhap" className="bg-[#bb0012] text-white px-5 py-2 rounded-full text-xs font-bold uppercase tracking-widest hover:opacity-90 transition-all active:scale-95">
+          <Link href="/dang-nhap" className="whitespace-nowrap rounded-full bg-[#bb0012] px-3 py-2 text-[10px] font-bold uppercase tracking-widest text-white transition-all hover:opacity-90 active:scale-95 sm:px-5 sm:text-xs">
             Đăng Nhập
           </Link>
         </div>

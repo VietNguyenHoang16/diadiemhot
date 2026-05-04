@@ -33,15 +33,15 @@ export default function Login() {
   return (
     <main className="min-h-screen bg-white">
       {/* Header */}
-      <header className="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-xl shadow-sm">
-        <div className="bg-[#00173a] text-white py-2 px-8 overflow-hidden whitespace-nowrap">
-          <div className="flex items-center gap-4 text-xs tracking-[0.2em] font-bold uppercase">
+      <header className="fixed left-0 right-0 top-0 z-50 overflow-x-clip bg-white/80 shadow-sm backdrop-blur-xl">
+        <div className="overflow-hidden whitespace-nowrap bg-[#00173a] px-4 py-2 text-white sm:px-6 lg:px-8">
+          <div className="flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.2em] sm:gap-4 sm:text-xs">
             <span className="bg-[#bb0012] px-2 py-0.5 rounded-sm">Nổi Bật</span>
             <p className="animate-pulse">Phát Hiện Quán Cà Phê Mới Tại Trung Tâm • Công Viên Xanh Vừa Khai Trương • Top Nhà Hàng Tháng 10 ...</p>
           </div>
         </div>
-        <nav className="flex justify-between items-center px-8 h-16 w-full max-w-screen-2xl mx-auto">
-          <div className="text-2xl font-black tracking-tighter text-[#00173a] uppercase">
+        <nav className="mx-auto flex h-16 w-full max-w-screen-2xl items-center justify-between gap-3 px-4 sm:px-6 lg:px-8">
+          <div className="text-lg font-black uppercase tracking-tighter text-[#00173a] sm:text-2xl">
             Địa Điểm Hot
           </div>
           <div className="hidden xl:flex items-center space-x-6 text-sm font-semibold">
@@ -58,7 +58,7 @@ export default function Login() {
 
       <div className="min-h-screen flex items-center justify-center px-4 py-32">
         <div className="w-full max-w-md">
-          <div className="bg-white shadow-lg border border-slate-200 rounded-2xl p-8">
+          <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-lg sm:p-8">
             <h1 className="text-2xl font-black text-[#00173a] uppercase text-center mb-2">
               Đăng Nhập
             </h1>

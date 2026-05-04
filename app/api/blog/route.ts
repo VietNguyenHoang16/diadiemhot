@@ -3,6 +3,8 @@ import { prisma } from '@/app/lib/db';
 import { extractProvinceFromContent, stripBlogContentMetadata } from '@/app/lib/blog-post-meta';
 import { safePublicDbQuery } from '@/app/lib/public-db';
 
+export const revalidate = 3600;
+
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const category = searchParams.get('category')?.trim();

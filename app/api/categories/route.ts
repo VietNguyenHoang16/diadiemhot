@@ -3,6 +3,8 @@ import { prisma } from '@/app/lib/db';
 import { safePublicDbQuery } from '@/app/lib/public-db';
 
 // GET /api/categories - Public endpoint to list all categories
+export const revalidate = 3600;
+
 export async function GET() {
   const categories = await safePublicDbQuery('api-categories', [], () =>
     prisma.category.findMany({

@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { cookies } from 'next/headers';
 import { Eye, Tag, ChevronRight, MapPin } from 'lucide-react';
 import { prisma } from '@/app/lib/db';
 import Header from '@/app/components/Header';
@@ -12,7 +11,7 @@ import { calculateExpectedViews } from '@/app/lib/auto-views';
 import { normalizeLegacyFigurePlaceholders } from '@/app/lib/image-placeholders';
 import { safePublicDbQuery } from '@/app/lib/public-db';
 import {
-  getPublicBlogPostBySlug,
+  getPublishedBlogIndexPosts,
   getPublishedBlogPostBySlug,
 } from '@/app/lib/blog-posts';
 import {
@@ -24,6 +23,8 @@ import {
   toAbsoluteImageUrl,
   uniqKeywords,
 } from '@/app/lib/site-config';
+
+export const revalidate = 3600;
 
 function decodeHtmlEntities(value: string) {
   return value
@@ -135,16 +136,16 @@ export async function generateMetadata({
   };
 }
 
+export async function generateStaticParams() {
+  const posts = await getPublishedBlogIndexPosts();
+  return posts.map((post) => ({ slug: post.slug }));
+}
+
 export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const session = (await cookies()).get('admin_session');
-  const isAdmin = session?.value === 'authenticated';
+  const post = await getPublishedBlogPostBySlug(slug);
 
-  const post = isAdmin
-    ? await getPublicBlogPostBySlug(slug)
-    : await getPublishedBlogPostBySlug(slug);
-
-  if (!post || (post.status !== 'PUBLISHED' && !isAdmin)) {
+  if (!post) {
     notFound();
   }
 
@@ -297,7 +298,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         />
       )}
 
-      <div className="max-w-screen-xl mx-auto pt-28 px-4 md:px-8 pb-16">
+      <div className="mx-auto max-w-screen-xl overflow-x-clip px-4 pb-16 pt-24 sm:px-6 md:px-8 lg:pt-28">
         <nav aria-label="Breadcrumb" className="mb-6 flex flex-wrap items-center gap-2 text-xs font-bold uppercase tracking-widest text-slate-400">
           <Link href="/" className="hover:text-[#bb0012]">Trang chủ</Link>
           <ChevronRight className="h-3 w-3" />
@@ -329,8 +330,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             </p>
           )}
 
-          <div className="flex items-center justify-between py-3 border-t border-b border-slate-200">
-            <div className="flex items-center gap-4">
+          <div className="flex flex-col gap-4 border-y border-slate-200 py-3 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex flex-wrap items-center gap-4">
               <span className="text-sm font-bold text-slate-700">
                 <span className="text-slate-500">By</span> {author}
               </span>
@@ -339,7 +340,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                 <span suppressHydrationWarning className="text-sm">{views.toLocaleString('vi-VN')} lượt xem</span>
               </div>
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex flex-wrap items-center gap-2">
               <span className="text-xs font-bold text-slate-500 uppercase tracking-widest">Chia sẻ:</span>
               <ArticleShareButtons title={title} url={shareUrl} />
             </div>
@@ -361,15 +362,15 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           </figcaption>
         </figure>
 
-        <div className="grid grid-cols-12 gap-8">
-          <article id="article-body" className="col-span-12 lg:col-span-8">
+        <div className="grid grid-cols-12 gap-6 lg:gap-8">
+          <article id="article-body" className="col-span-12 min-w-0 lg:col-span-8">
             <div
               suppressHydrationWarning
               className="blog-content"
               dangerouslySetInnerHTML={{ __html: content }}
             />
 
-            <div suppressHydrationWarning className="flex flex-wrap gap-2 pt-6 border-t border-slate-200 mt-10" role="list" aria-label="Tags">
+            <div suppressHydrationWarning className="mt-10 flex flex-wrap items-start gap-2 border-t border-slate-200 pt-6" role="list" aria-label="Tags">
               <Tag className="w-4 h-4 text-slate-500 mr-2" />
               <Link href={`/blog?category=${encodeURIComponent(category)}`} className="px-3 py-1.5 bg-slate-100 text-slate-600 text-xs font-bold uppercase tracking-wider hover:bg-[#bb0012] hover:text-white transition-colors rounded" role="listitem">#{category}</Link>
               {province && (
@@ -384,12 +385,12 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
               ))}
             </div>
 
-            <div className="mt-10 p-6 bg-slate-50 rounded-lg border border-slate-200">
-              <div className="flex items-center gap-4">
+            <div className="mt-10 rounded-lg border border-slate-200 bg-slate-50 p-5 sm:p-6">
+              <div className="flex flex-wrap items-center gap-4 sm:flex-nowrap">
                 <div className="w-14 h-14 bg-[#00173a] text-white rounded-full flex items-center justify-center text-xl font-black shrink-0">
                   {author.split(' ').map((n) => n[0]).join('')}
                 </div>
-                <div className="flex-1">
+                <div className="min-w-0 flex-1">
                   <p className="font-bold text-[#00173a]">{author}</p>
                   <p className="text-sm text-slate-500">Ban biên tập - {SITE_NAME}</p>
                 </div>
@@ -398,7 +399,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             </div>
           </article>
 
-          <aside className="col-span-12 lg:col-span-4 space-y-8 lg:sticky lg:top-28 lg:self-start lg:max-h-[calc(100vh-8rem)] lg:overflow-y-auto lg:scrollbar-thin lg:scrollbar-thumb-slate-300 lg:scrollbar-track-transparent">
+          <aside className="col-span-12 min-w-0 space-y-8 lg:col-span-4 lg:sticky lg:top-28 lg:self-start lg:max-h-[calc(100vh-8rem)] lg:overflow-y-auto lg:scrollbar-thin lg:scrollbar-thumb-slate-300 lg:scrollbar-track-transparent">
             <section className="bg-white border border-slate-200 rounded-lg overflow-hidden">
               <div className="bg-[#00173a] text-white px-4 py-3">
                 <p className="font-black uppercase tracking-wider text-sm">Đừng Bỏ Lỡ</p>
@@ -453,13 +454,13 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
         {morePosts.length > 0 && (
           <section className="mt-16 pt-10 border-t border-slate-200">
-            <div className="flex items-center justify-between mb-8">
+            <div className="mb-8 flex flex-wrap items-center justify-between gap-3">
               <h2 className="text-2xl font-black text-[#00173a] uppercase tracking-tight">Đọc Thêm</h2>
               <Link href="/blog" className="text-sm font-bold text-[#bb0012] uppercase tracking-widest hover:underline flex items-center gap-1">
                 Xem tất cả <ChevronRight className="w-4 h-4" />
               </Link>
             </div>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-4">
               {morePosts.map((item) => (
                 <Link key={item.id} href={`/blog/${item.slug}`} className="group">
                   <div className="aspect-[4/3] bg-slate-200 rounded-lg overflow-hidden mb-3">

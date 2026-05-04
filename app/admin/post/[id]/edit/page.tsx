@@ -345,7 +345,7 @@ export default function PostEditPage() {
           </div>
           <div className="flex items-center gap-3">
             <button
-              onClick={() => window.open(`/blog/${post.slug}`, '_blank')}
+              onClick={() => window.open(`/preview/${post.slug}`, '_blank')}
               className="flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-100 text-slate-600 hover:bg-slate-200 transition-all text-sm font-bold"
             >
               <Eye className="w-4 h-4" />

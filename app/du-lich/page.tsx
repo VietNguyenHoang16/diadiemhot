@@ -171,22 +171,22 @@ export default function DuLich() {
     <main className="min-h-screen bg-white">
       <Header showNewsTicker={true} activeLink="du-lich" />
 
-      <div className="max-w-screen-2xl mx-auto pt-32 px-8 pb-16">
-        <div className="grid grid-cols-12 gap-8">
+      <div className="mx-auto max-w-screen-2xl overflow-x-clip px-4 pb-16 pt-28 sm:px-6 lg:px-8 lg:pt-32">
+        <div className="grid grid-cols-12 gap-6 lg:gap-8">
           {/* Main Content */}
-          <div className="col-span-12 lg:col-span-9 space-y-12">
+          <div className="col-span-12 min-w-0 space-y-12 lg:col-span-9">
             {/* Hero Section */}
-            <section className="relative h-96 rounded-2xl overflow-hidden">
+            <section className="relative min-h-[32rem] overflow-hidden rounded-2xl sm:min-h-[30rem] lg:h-96 lg:min-h-0">
               <img alt="Du lịch" className="w-full h-full object-cover" src="https://images.unsplash.com/photo-1506929562872-bb03ffa7f88c?w=1200&h=600&fit=crop" />
               <div className="absolute inset-0 bg-gradient-to-t from-[#00173a]/80 to-transparent"></div>
-              <div className="absolute bottom-0 p-12">
+              <div className="absolute bottom-0 w-full p-6 sm:p-8 lg:p-12">
                 <h1 className="text-5xl font-black text-white uppercase tracking-tighter mb-4">Du Lịch</h1>
                 <p className="text-xl text-white/80 mb-6">Khám phá những địa điểm du lịch tuyệt vời tại Việt Nam</p>
-                <div className="flex gap-3">
+                <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
                   <select
                     value={selectedProvince}
                     onChange={(e) => setSelectedProvince(e.target.value)}
-                    className="bg-white text-[#00173a] font-bold px-4 py-3 rounded-lg cursor-pointer"
+                    className="w-full cursor-pointer rounded-lg bg-white px-4 py-3 font-bold text-[#00173a] sm:w-auto"
                   >
                     <option value="">Tất cả tỉnh/thành</option>
                     <option value="Hà Nội">Hà Nội</option>
@@ -204,7 +204,7 @@ export default function DuLich() {
                     <option value="Vũng Tàu">Vũng Tàu</option>
                   </select>
                   <input
-                    className="bg-white text-[#00173a] px-4 py-3 rounded-lg flex-1"
+                    className="min-w-0 flex-1 rounded-lg bg-white px-4 py-3 text-[#00173a]"
                     placeholder="Tìm kiếm địa điểm..."
                     type="text"
                     value={searchQuery}
@@ -213,7 +213,7 @@ export default function DuLich() {
                   />
                   <button
                     onClick={handleSearch}
-                    className="bg-[#bb0012] text-white px-6 py-3 rounded-lg font-bold uppercase hover:opacity-90 transition-all active:scale-95"
+                    className="w-full rounded-lg bg-[#bb0012] px-6 py-3 font-bold uppercase text-white transition-all hover:opacity-90 active:scale-95 sm:w-auto"
                   >
                     Tìm
                   </button>
@@ -340,7 +340,7 @@ export default function DuLich() {
           </div>
 
           {/* Right Sidebar */}
-          <aside className="col-span-12 lg:col-span-3 space-y-8">
+          <aside className="col-span-12 min-w-0 space-y-8 lg:col-span-3">
             {/* Search */}
             <section className="bg-slate-100 p-6 rounded-lg">
               <h2 className="text-sm font-black text-[#00173a] uppercase tracking-widest mb-4">Tìm Kiếm</h2>

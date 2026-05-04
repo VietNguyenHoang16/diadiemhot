@@ -86,9 +86,9 @@ export default function PhongCachPage() {
     <main className="min-h-screen bg-white">
       <Header showNewsTicker={true} activeLink="phong-cach" />
 
-      <div className="mx-auto max-w-screen-2xl px-8 pb-16 pt-32">
-        <div className="grid grid-cols-12 gap-8">
-          <div className="col-span-12 space-y-12 lg:col-span-8">
+      <div className="mx-auto max-w-screen-2xl overflow-x-clip px-4 pb-16 pt-28 sm:px-6 lg:px-8 lg:pt-32">
+        <div className="grid grid-cols-12 gap-6 lg:gap-8">
+          <div className="col-span-12 min-w-0 space-y-12 lg:col-span-8">
             <section className="border-b border-slate-100 pb-10">
               <p className="text-[10px] font-black uppercase tracking-[0.32em] text-[#bb0012]">Phong Cach Editorial</p>
               <h1 className="mt-4 text-5xl font-black uppercase tracking-tighter text-[#00173a]">Xếp Hạng</h1>
@@ -127,7 +127,7 @@ export default function PhongCachPage() {
                       src={getPostImage(heroPost.image)}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#00173a] via-[#00173a]/85 to-[#00173a]/30" />
-                    <div className="relative flex min-h-[520px] flex-col justify-end p-8 md:p-12">
+                    <div className="relative flex min-h-[460px] flex-col justify-end p-6 sm:min-h-[520px] md:p-12">
                       <div className="mb-5 flex flex-wrap items-center gap-3 text-[10px] font-black uppercase tracking-[0.24em] text-white/70">
                         <span className="rounded-full bg-[#bb0012] px-4 py-2 text-white">{RANKING_CATEGORY}</span>
                         {heroPost.province ? (
@@ -242,7 +242,7 @@ export default function PhongCachPage() {
             )}
           </div>
 
-          <aside className="col-span-12 space-y-8 lg:col-span-4">
+          <aside className="col-span-12 min-w-0 space-y-8 lg:col-span-4">
             <section className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm">
               <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.28em] text-slate-400">
                 <Sparkles className="h-4 w-4 text-[#bb0012]" />

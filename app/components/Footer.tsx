@@ -7,7 +7,7 @@ import ContactForm from '@/app/components/ContactForm';
 
 export default function Footer() {
   return (
-    <footer className="bg-[#00173a] w-full pt-16 pb-8 px-8">
+    <footer className="w-full bg-[#00173a] px-4 pb-8 pt-14 sm:px-6 sm:pt-16 lg:px-8">
       <div className="max-w-screen-2xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 border-b border-white/10 pb-12">
         {/* Brand */}
         <div className="space-y-6">
