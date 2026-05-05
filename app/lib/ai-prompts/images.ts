@@ -23,7 +23,7 @@ export const imageMarkerPrompt: PromptModule = {
   - <code>space</code>: Anh khong gian (16:9)
   - <code>person</code>: Anh nguoi (3:4)
   - <code>product</code>: Anh san pham (1:1)
-- **description**: Mo ta chi tiet anh can tim - phai dung chu de bai viet, mo ta ro rang what/where/how. TOI DA 40 KY TU. Khong viet cau hoan chinh, chi cu ng tu du hieu.
+- **description**: Mo ta ngan gon anh can tim - phai dung chu de bai viet, ro what/where. TOI DA 40 KY TU hoac 8 TU. Khong viet cau hoan chinh, khong chen ly do, loi ich, nhan dinh dai dong. Description nay se thanh caption anh nen phai ngan, du y.
 
 ### VI DU MARKER DUNG Y (lien quan chu de):
 - Chu de review quan ca phe: \`[IMAGE:hero_1:hero:"Mat tien quan Giang 1946"]\`
@@ -33,6 +33,7 @@ export const imageMarkerPrompt: PromptModule = {
 ### VI DU MARKER SAI - KHONG LAM:
 - \`[IMAGE:hero_1:hero:"Quan cafe Giang Ha Noi, mat tien tu nam 1946, bang hieu go truyen thong"]\` (QUA DAI - tren 40 ky tu)
 - \`[IMAGE:food_1:food:"Banh mi bo toi Phung Sai Gon, goc chup can canh nhan banh dang nong"]\` (QUA DAI)
+- \`[IMAGE:space_1:space:"Xuong san xuat hien dai giup don vi kiem soat chat luong va gia thanh tot hon doi thu"]\` (QUA DAI - caption thanh mot doan van)
 - \`[IMAGE:hero_1:hero:"Beautiful coffee shop"]\` (qua chung chung)
 - \`[IMAGE:food_1:food:"Food photo"]\` (khong mo ta gi)
 - \`[IMAGE:space_1:space:"Random interior"]\` (khong lien quan chu de)

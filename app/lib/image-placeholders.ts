@@ -43,8 +43,14 @@ function inferPlaceholderType(classNames: string) {
   return 'content';
 }
 
+function shortenCaption(value: string) {
+  const words = value.replace(/\s+/g, ' ').trim().split(' ').filter(Boolean);
+  const caption = words.slice(0, 8).join(' ');
+  return caption.length > 60 ? `${caption.slice(0, 57).trim()}...` : caption;
+}
+
 export function createImagePlaceholderHtml(id: string, type: string, description: string) {
-  const cleanDesc = description.replace(/\s+/g, ' ').trim();
+  const cleanDesc = shortenCaption(description);
   const icon = PLACEHOLDER_ICON_BY_TYPE[type] || PLACEHOLDER_ICON_BY_TYPE.content;
   const label = PLACEHOLDER_LABEL_BY_TYPE[type] || 'Ảnh';
   const displayDesc = cleanDesc.length > 60 ? `${cleanDesc.slice(0, 57)}...` : cleanDesc;

@@ -89,6 +89,11 @@ export const basePrompt: PromptModule = {
 </div>
 \`\`\`
 
+### BAT BUOC KHI VIET QUY TRINH / CAC BUOC
+- Khong dung block card rieng kieu 01, 02, 03.
+- Viet thanh tieu muc h3 theo so muc cha: neu dang o muc 4 thi dung <strong>4.1. Ten buoc</strong>, <strong>4.2. Ten buoc</strong>; neu dang o muc 7 thi dung <strong>7.1...</strong>, <strong>7.2...</strong>.
+- Moi buoc chi co 1 doan p ngan gon 2-3 cau, khong viet thanh list dai.
+
 ## OUTPUT JSON FORMAT:
 \`\`\`json
 {

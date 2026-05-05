@@ -181,6 +181,9 @@ export function buildPrompt(request: GenerateRequest): string {
     prompt += `15. Tự đề xuất 1 danh mục phù hợp (VD: Du lịch, Review, Ẩm thực) và trả về trong field "category".\n`;
   }
 
+  prompt += `16. CAPTION/description anh trong [IMAGE:...] phai rat ngan: toi da 8 tu hoac 40 ky tu, chi mo ta vat/canh trong anh. Khong bien caption thanh doan van, khong chen loi ich/ly do/nhan dinh.\n`;
+  prompt += `17. Neu viet quy trinh/cac buoc, KHONG dung block 01/02/03. Hay viet h3 tieu muc theo so muc cha: 4.1, 4.2... hoac 7.1, 7.2... va in dam so + ten buoc bang <strong>.\n`;
+
   return prompt;
 }
 
@@ -249,7 +252,7 @@ export function parseAIResponse(rawText: string): {
 }
 
 function extractJsonObject(text: string): string | null {
-  let startIdx = text.indexOf('{');
+  const startIdx = text.indexOf('{');
   if (startIdx === -1) return null;
 
   let depth = 0;
@@ -291,7 +294,7 @@ function extractJsonObject(text: string): string | null {
   return text.substring(startIdx, endIdx + 1);
 }
 
-function normalizeParsedResponse(parsed: any): {
+function normalizeParsedResponse(parsed: Record<string, unknown>): {
   title: string;
   excerpt: string;
   content: string;
@@ -303,15 +306,27 @@ function normalizeParsedResponse(parsed: any): {
   imageMarkers?: Array<{ id: string; type: string; description: string }>;
 } {
   return {
-    title: parsed.title || '',
-    excerpt: parsed.excerpt || parsed.metaDescription || '',
-    content: parsed.content || '',
-    category: parsed.category,
-    tags: Array.isArray(parsed.tags) ? parsed.tags.slice(0, 10) : [],
-    targetKeywords: parsed.targetKeywords,
-    metaTitle: parsed.metaTitle,
-    metaDescription: parsed.metaDescription,
-    imageMarkers: parsed.imageMarkers
+    title: typeof parsed.title === 'string' ? parsed.title : '',
+    excerpt: typeof parsed.excerpt === 'string'
+      ? parsed.excerpt
+      : typeof parsed.metaDescription === 'string'
+        ? parsed.metaDescription
+        : '',
+    content: typeof parsed.content === 'string' ? parsed.content : '',
+    category: typeof parsed.category === 'string' ? parsed.category : undefined,
+    tags: Array.isArray(parsed.tags) ? parsed.tags.filter((tag): tag is string => typeof tag === 'string').slice(0, 10) : [],
+    targetKeywords: Array.isArray(parsed.targetKeywords) ? parsed.targetKeywords.filter((keyword): keyword is string => typeof keyword === 'string') : undefined,
+    metaTitle: typeof parsed.metaTitle === 'string' ? parsed.metaTitle : undefined,
+    metaDescription: typeof parsed.metaDescription === 'string' ? parsed.metaDescription : undefined,
+    imageMarkers: Array.isArray(parsed.imageMarkers)
+      ? parsed.imageMarkers.filter((marker): marker is { id: string; type: string; description: string } => (
+        typeof marker === 'object' &&
+        marker !== null &&
+        typeof (marker as { id?: unknown }).id === 'string' &&
+        typeof (marker as { type?: unknown }).type === 'string' &&
+        typeof (marker as { description?: unknown }).description === 'string'
+      ))
+      : undefined
   };
 }
 
