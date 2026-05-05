@@ -35,18 +35,16 @@ function normalizeBlogPost<T extends {
 }
 
 export const getPublishedBlogPostBySlug = cache(async (slug: string) => {
-  const post = await safePublicDbQuery(`blog-post:${slug}`, null, () =>
-    prisma.blogPost.findFirst({
-      where: {
-        slug,
-        status: 'PUBLISHED',
-      },
-      include: {
-        province: { select: { name: true } },
-        tags: { include: { tag: true } },
-      },
-    })
-  );
+  const post = await prisma.blogPost.findFirst({
+    where: {
+      slug,
+      status: 'PUBLISHED',
+    },
+    include: {
+      province: { select: { name: true } },
+      tags: { include: { tag: true } },
+    },
+  });
 
   return post ? normalizeBlogPost(post) : null;
 });
